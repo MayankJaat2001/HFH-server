@@ -6,6 +6,9 @@ import upload from '../middlewares/uploads.js';
 import applicationuploads from '../middlewares/applicationuploads.js';
 import { addApplications, updateApplication } from '../controller/applicaions-controller.js';
 import { deleteapplicationDocument, getApplicationDocuments, uploadApplicationFile } from '../controller/applicationdoc-controller.js';
+import { addOwnership, deleteOwnership, updateOwnership } from '../controller/ownership-controller.js';
+import { addNotes, deleteNotes, updateNotes } from '../controller/notes-controller.js';
+import { addWebLink, deleteWebLink,  updateWebLinks } from '../controller/weblink-controller.js';
 
 
 const router=express.Router();
@@ -21,5 +24,14 @@ router.get('/application/:id',getApplicationDocuments);
 router.put('/update-application/:id',updateApplication);
 router.delete('/file/delete/:id',deleteDocument);
 router.delete('/application/delete/:id',deleteapplicationDocument);
+router.post('/add-ownership',addOwnership);
+router.put('/update-ownership/:id',updateOwnership);
+router.delete('/ownership/delete/:id',deleteOwnership);
+router.post('/add-note',addNotes);
+router.put('/update-note/:id',updateNotes);
+router.delete('/note/delete/:id',deleteNotes);
+router.post('/add-weblink',addWebLink);
+router.put('/update-weblink/:id',updateWebLinks);
+router.delete('/weblink/delete/:id',deleteWebLink);
 
 export default router;

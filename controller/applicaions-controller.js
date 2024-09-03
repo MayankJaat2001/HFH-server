@@ -1,6 +1,9 @@
 import applications from "../models/application-schema.js";
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
+import ownerships from "../models/owner-schema.js";
+import notes from "../models/notes-schema.js";
+import weblinks from "../models/weblink-schema.js";
 
 dotenv.config()
 
@@ -14,8 +17,8 @@ export const addApplications=async(req,res)=>{
     const {
         AgentUID,
         Overview:{
-            BussinessInformation: {
-                BussnessName,
+            BusinessInformation: {
+                BusinessName,
                 EmailAddress,
                 ClientFirstName,
                 ClientLastName,
@@ -36,11 +39,11 @@ export const addApplications=async(req,res)=>{
         },
             ClientDetails:{
                 
-                BussinessInformation: {
+                BusinessInformation: {
                     LegalName,
-                DoingBussinessAs,
+                DoingBusinessAs,
                 CompanyEmail,
-                BussnessPhoneNumber,
+                BusnessPhoneNumber,
                 CellPhoneNumber,
                 PrimaryWebsite
             },
@@ -50,8 +53,8 @@ export const addApplications=async(req,res)=>{
                 NAICSDescription,
                 NAICSCode
             },
-            BussinessDetails: {
-                DateBussinessStarted,
+            BusinessDetails: {
+                DateBusinessStarted,
                 LengthOfOwnership,
                 GrossMonthlySales,
                 IncorporationState,
@@ -80,8 +83,8 @@ export const addApplications=async(req,res)=>{
             AgentUID,
             ApplicationId,
             Overview:{
-                BussinessInformation: {
-                    BussnessName,
+                BusinessInformation: {
+                    BusnessName,
                     EmailAddress,
                     ClientFirstName,
                     ClientLastName,
@@ -102,11 +105,11 @@ export const addApplications=async(req,res)=>{
             },
                 ClientDetails:{
                     
-                    BussinessInformation: {
+                    BusinessInformation: {
                         LegalName,
-                    DoingBussinessAs,
+                    DoingBusinessAs,
                     CompanyEmail,
-                    BussnessPhoneNumber,
+                    BusnessPhoneNumber,
                     CellPhoneNumber,
                     PrimaryWebsite
                 },
@@ -116,8 +119,8 @@ export const addApplications=async(req,res)=>{
                     NAICSDescription,
                     NAICSCode
                 },
-                BussinessDetails: {
-                    DateBussinessStarted,
+                BusinessDetails: {
+                    DateBusinessStarted,
                     LengthOfOwnership,
                     GrossMonthlySales,
                     IncorporationState,
@@ -147,8 +150,23 @@ export const updateApplication=async(req,res)=>{
     const {id} = req.params;
     const updateData=req.body;
 
+
     try{
-        const updatedApplication = await applications.findOneAndUpdate({ApplicationId:id},updateData,{
+        const ownershipData = await ownerships.find({})
+        const notesData = await notes.find({})
+        const weblinkData = await weblinks.find({})
+
+        const updatedFields={
+            ...updateData,
+            UnderWriting:{
+                ...updateData.UnderWriting,
+                Ownership:ownershipData,
+                BusinessDetails:notesData,
+                Weblinks:weblinkData
+            }
+        };
+
+        const updatedApplication = await applications.findOneAndUpdate({ApplicationId:id},updatedFields,{
             new:true,
             runValidators:true
         });
@@ -156,8 +174,8 @@ export const updateApplication=async(req,res)=>{
         if(!updatedApplication){
             return res.status(404).json({message:"Application is not found"});
         }
-        res.status(200).json({message:"Application updated successfully",data:updatedApplication})
+        return res.status(200).json({message:"Application updated successfully",data:updatedApplication})
     }catch(err){
-        res.status(500).json({message:"Error while updating Application",error:err.message,err})
+        return res.status(500).json({message:"Error while updating Application",error:err.message,err})
     }
 }
