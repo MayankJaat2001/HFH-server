@@ -32,10 +32,10 @@ export const addISOs =async(req,res)=>{
             RepaymentAddress
             } =req.body;
             try {
-                const mydata= await mongoose.connection.db.collection('fs.files').find().toArray();
+                const mydata= await mongoose.connection.db.collection('fs.files').find({'metadata.ISOUID':ISOUID}).toArray();
                 const fileDocuments = mydata.map(file => ({
                     filename:file.filename,
-                    path:`${serverurl}/file/${file.metadata}`
+                    path:`${serverurl}/file/${file.metadata.doc_id}`
                 }));
             
             const ISOUID = generateUID();

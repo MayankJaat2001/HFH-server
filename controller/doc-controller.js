@@ -24,7 +24,8 @@ export const uploadFile=async(request,response)=>{
         const fileDetails = {
             filename: request.file.filename,
             isodoc_id: request.file.metadata.doc_id,
-            updatedTime: request.file.uploadDate
+            updatedTime: request.file.uploadDate,
+            ISOUID:request.body.ISOUID || null
         };
         // const fileUrl=`${url}/file/${request.file.metadata}`;
         return response.status(200).json(fileDetails);
