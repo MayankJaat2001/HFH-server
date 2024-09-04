@@ -30,11 +30,10 @@ export const addISOs =async(req,res)=>{
             RepaymentWorkPhone,
             RepaymentCellPhone,
             RepaymentAddress,
-            uploadedFiles
             } =req.body;
             try {
                 const mydata= await mongoose.connection.db.collection('fs.files').find({'metadata.ISOUID':ISOUID}).toArray();
-                const fileDocuments = uploadedFiles.map(file => ({
+                const fileDocuments = mydata.map(file => ({
                     filename:file.filename,
                     path:`${serverurl}/file/${file.metadata.doc_id}`
                 }));
