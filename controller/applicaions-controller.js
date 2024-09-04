@@ -70,13 +70,14 @@ export const addApplications=async(req,res)=>{
             NoteType,
             NoteTemplate,
             NoteContent
-        }        
+        },
+        files        
     }=req.body;
     const ApplicationId=generateUID();
-    const mydata= await mongoose.connection.db.collection('application.files').find().toArray();
-                const fileDocuments = mydata.map(file => ({
+    // const mydata= await mongoose.connection.db.collection('application.files').find().toArray();
+                const fileDocuments = files.map(file => ({
                     filename:file.filename,
-                    path:`${serverurl}/application/${file.metadata}`
+                    path:`${serverurl}/application/${file.docid}`
                 }));
     try{
         const newApplication = new applications({
@@ -137,7 +138,8 @@ export const addApplications=async(req,res)=>{
                 NoteType,
                 NoteTemplate,
                 NoteContent
-            }
+            },
+            Status: "In Process"
         });
         await newApplication.save();
         res.status(201).json({Message:'Application Details and Documents added Successfully',application_Id:newApplication.ApplicationId})
@@ -163,7 +165,8 @@ export const updateApplication=async(req,res)=>{
                 Ownership:ownershipData,
                 BusinessDetails:notesData,
                 Weblinks:weblinkData
-            }
+            },
+            Status: "UnderWriting"
         };
 
         const updatedApplication = await applications.findOneAndUpdate({ApplicationId:id},updatedFields,{
@@ -177,5 +180,24 @@ export const updateApplication=async(req,res)=>{
         return res.status(200).json({message:"Application updated successfully",data:updatedApplication})
     }catch(err){
         return res.status(500).json({message:"Error while updating Application",error:err.message,err})
+    }
+}
+
+export const getApplication = async(req,res)=>{
+    try{
+        const agentUID=req.query.agentUID;
+        if(!agentUID){
+            return res.status(400).json({message:"AgentUID is required"})
+        }
+        const newApplications= await applications.find({"AgentUID":agentUID});
+        
+        const applicationWithStatus = newApplications.map(app=>({
+            ...app.toObject(),
+            Status: app.Status || "In Process"
+        }))
+        res.status(200).json(applicationWithStatus);
+    }catch(err){
+        return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
+
     }
 }

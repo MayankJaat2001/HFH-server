@@ -30,12 +30,13 @@ export const addISOs =async(req,res)=>{
             RepaymentWorkPhone,
             RepaymentCellPhone,
             RepaymentAddress,
+            files
             } =req.body;
             try {
-                const mydata= await mongoose.connection.db.collection('fs.files').find({'metadata.ISOUID':ISOUID}).toArray();
-                const fileDocuments = mydata.map(file => ({
+                // const mydata= await mongoose.connection.db.collection('fs.files').find().toArray();
+                const fileDocuments = files.map(file => ({
                     filename:file.filename,
-                    path:`${serverurl}/file/${file.metadata.doc_id}`
+                    path:`${serverurl}/file/${file.docid}`
                 }));
             
             const ISOUID = generateUID();
@@ -70,6 +71,20 @@ export const addISOs =async(req,res)=>{
             await isos.save();
             res.status(201).json({message:'General Details and documents added successfully',isouid:isos.ISOUID})
         }catch(err){
-            res.status(500).json({err:'Error saving ISO Data'})
+            res.status(500).json({message:'Error saving ISO Data',error:err.message})
         }
+}
+
+export const getISOs = async(req,res)=>{
+    try{
+        const agentUID=req.query.agentUID;
+        if(!agentUID){
+            return res.status(400).json({message:"AgentUID is required"})
+        }
+        const isos= await ISOs.find({"AgentUID":agentUID});
+        res.status(200).json(isos);
+    }catch(err){
+        return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
+
+    }
 }
