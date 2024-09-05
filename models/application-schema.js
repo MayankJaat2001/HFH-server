@@ -25,7 +25,6 @@ const applicationSchema = new mongoose.Schema({
         },
     },
     ClientDetails: {
-
         BusinessInformation: {
             LegalName:String,
             DoingBusinessAs:String,
@@ -43,15 +42,44 @@ const applicationSchema = new mongoose.Schema({
         BusinessDetails:{
             DateBusinessStarted:String,
             LengthOfOwnership:String,
+            IncorporationDate:String,
             GrossMonthlySales:String,
             IncorporationState:String,
+            TypesOfBusinessEntity:String,
             EINNumber:String,
             Addresses:String,
         },
         ISOInformation:{
             ReferringISO:String,
             ISOSalesRep:String,
-        }
+        },
+        CardInfo:{
+            DebitCredit:String,
+            CardType:String,
+            CardIssuer:String,
+            NameOnCard:String,
+            CardNumber:String,
+            ExpiryDate:String,
+            CVV:String
+        },
+        BillionInfo:{
+            BillingAddress:String,
+            BillingAddress2:String,
+            BillingCity:String,
+            BillingState:String,
+            BillingZIPCode:Number
+        },
+        BankDetails:{
+            RoutingNumber:String,
+            AccountNumber:String,
+            BankName:String,
+            AccountType:String,
+            HolderName:String,
+            AccountHolderAddress:String,
+            AccountHolderCity:String,
+            AccountHolderState:String,
+            AccountHolderZIPCode:Number
+        },
     },
     Documents:[{
         filename:String,
@@ -99,10 +127,10 @@ const applicationSchema = new mongoose.Schema({
             Date:String,
         }],
         OperationsNotes:{
-            BankName:String,
-            RoutingNumber:String,
-            AccountNumber:String,
-            AccountType:String
+            UnderWritingBankName:String,
+            UnderWritingRoutingNumber:String,
+            UnderWritingAccountNumber:String,
+            UnderWritingAccountType:String
         },
         // SavedPositions:{
         //     Active:String,

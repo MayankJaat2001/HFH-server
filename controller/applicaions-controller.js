@@ -56,14 +56,43 @@ export const addApplications=async(req,res)=>{
             BusinessDetails: {
                 DateBusinessStarted,
                 LengthOfOwnership,
+                IncorporationDate,
                 GrossMonthlySales,
                 IncorporationState,
+                TypesOfBusinessEntity,
                 EINNumber,
                 Addresses
             },
             ISOInformation: {
                 ReferringISO,
                 ISOSalesRep: ClientDetailsISOSalesRep
+            },
+            CardInfo:{
+                DebitCredit,
+                CardType,
+                CardIssuer,
+                NameOnCard,
+                CardNumber,
+                ExpiryDate,
+                CVV
+            },
+            BillionInfo:{
+                BillingAddress,
+                BillingAddress2,
+                BillingCity,
+                BillingState,
+                BillingZIPCode
+            },
+            BankDetails:{
+                RoutingNumber,
+                AccountNumber,
+                BankName,
+                AccountType,
+                HolderName,
+                AccountHolderAddress,
+                AccountHolderCity,
+                AccountHolderState,
+                AccountHolderZIPCode
             },
         },
         Notes:{
@@ -85,7 +114,7 @@ export const addApplications=async(req,res)=>{
             ApplicationId,
             Overview:{
                 BusinessInformation: {
-                    BusnessName,
+                    BusinessName,
                     EmailAddress,
                     ClientFirstName,
                     ClientLastName,
@@ -123,14 +152,43 @@ export const addApplications=async(req,res)=>{
                 BusinessDetails: {
                     DateBusinessStarted,
                     LengthOfOwnership,
+                    IncorporationDate,
                     GrossMonthlySales,
                     IncorporationState,
+                    TypesOfBusinessEntity,
                     EINNumber,
                     Addresses
                 },
                 ISOInformation: {
                     ReferringISO,
                     ISOSalesRep: ClientDetailsISOSalesRep
+                },
+                CardInfo:{
+                    DebitCredit,
+                    CardType,
+                    CardIssuer,
+                    NameOnCard,
+                    CardNumber,
+                    ExpiryDate,
+                    CVV
+                },
+                BillionInfo:{
+                    BillingAddress,
+                    BillingAddress2,
+                    BillingCity,
+                    BillingState,
+                    BillingZIPCode
+                },
+                BankDetails:{
+                    RoutingNumber,
+                    AccountNumber,
+                    BankName,
+                    AccountType,
+                    HolderName,
+                    AccountHolderAddress,
+                    AccountHolderCity,
+                    AccountHolderState,
+                    AccountHolderZIPCode
                 },
             },
             Documents:fileDocuments,

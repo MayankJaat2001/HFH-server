@@ -9,8 +9,6 @@ const storage = new GridFsStorage({
     url: process.env.MONGO_URI,
     file: (request, file) => {
         const match = [
-            "image/png",
-            "image/jpg",
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
