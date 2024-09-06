@@ -259,3 +259,16 @@ export const getApplication = async(req,res)=>{
 
     }
 }
+
+export const getSingleApplication = async(req,resp)=>{
+    const {id} = req.params;
+    try{
+        const singleApplication = await applications.findOne({ApplicationId:id})
+        if(!singleApplication){
+            return resp.status(404).json({message:'Application not Found'})
+        }
+        resp.status(201).json(singleApplication)
+    }catch(err){
+        resp.status(500).json({message:'Error while fetching your application',error:err.message})
+    }
+}

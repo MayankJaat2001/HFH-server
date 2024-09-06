@@ -9,8 +9,6 @@ const applicationSchema = new mongoose.Schema({
             EmailAddress:String,
             ClientFirstName:String,
             ClientLastName: String,
-            Web: String,
-            PhoneNumber:Number,
         },
         FundingDetails: {
             WhiteLabel: String,
@@ -29,7 +27,7 @@ const applicationSchema = new mongoose.Schema({
             LegalName:String,
             DoingBusinessAs:String,
             CompanyEmail:String,
-            BusinessPhoneNumber:String,
+            BusinessPhoneNumber:Number,
             CellPhoneNumber:Number,
             PrimaryWebsite:String,
         },

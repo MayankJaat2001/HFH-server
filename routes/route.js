@@ -4,7 +4,7 @@ import { addISOs, getISOs } from '../controller/iso-controller.js';
 import { deleteDocument, getDocuments, uploadFile } from '../controller/doc-controller.js';
 import upload from '../middlewares/uploads.js';
 import applicationuploads from '../middlewares/applicationuploads.js';
-import { addApplications, getApplication, updateApplication } from '../controller/applicaions-controller.js';
+import { addApplications, getApplication, getSingleApplication, updateApplication } from '../controller/applicaions-controller.js';
 import { deleteapplicationDocument, getApplicationDocuments, uploadApplicationFile } from '../controller/applicationdoc-controller.js';
 import { addOwnership, deleteOwnership, updateOwnership } from '../controller/ownership-controller.js';
 import { addNotes, deleteNotes, updateNotes } from '../controller/notes-controller.js';
@@ -21,6 +21,7 @@ router.get('/file/:id',getDocuments);
 router.post('/add-application',addApplications);
 router.post('/application/uploads',applicationuploads.single("file"),uploadApplicationFile);
 router.get('/application/:id',getApplicationDocuments);
+router.get('/singleapplication/:id',getSingleApplication)
 router.put('/update-application/:id',updateApplication);
 router.delete('/file/delete/:id',deleteDocument);
 router.delete('/application/delete/:id',deleteapplicationDocument);
