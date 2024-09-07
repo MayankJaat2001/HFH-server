@@ -88,3 +88,12 @@ export const getISOs = async(req,res)=>{
 
     }
 }
+export const getAllISOs = async(req,res)=>{
+    try{
+        const isos= await ISOs.find({});
+        res.status(200).json(isos);
+    }catch(err){
+        return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
+
+    }
+}
