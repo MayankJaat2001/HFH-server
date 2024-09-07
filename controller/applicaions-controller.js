@@ -210,7 +210,6 @@ export const updateApplication=async(req,res)=>{
     const {id} = req.params;
     const updateData=req.body;
 
-
     try{
         const ownershipData = await ownerships.find({})
         const notesData = await notes.find({})

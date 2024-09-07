@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const applicationSchema = new mongoose.Schema({
-    AgentUID:Number,
-    ApplicationId:Number,
+    AgentUID:String,
+    ApplicationId:String,
     Overview: {
         BusinessInformation: {
             BusinessName:String,
@@ -12,7 +12,7 @@ const applicationSchema = new mongoose.Schema({
         },
         FundingDetails: {
             WhiteLabel: String,
-            Installment: Number,
+            Installment: String,
             Type: String,
         },
         ISODetails: {
@@ -27,15 +27,15 @@ const applicationSchema = new mongoose.Schema({
             LegalName:String,
             DoingBusinessAs:String,
             CompanyEmail:String,
-            BusinessPhoneNumber:Number,
-            CellPhoneNumber:Number,
+            BusinessPhoneNumber:String,
+            CellPhoneNumber:String,
             PrimaryWebsite:String,
         },
         IndustryDetails:{
             SICDescription:String,
-            SICCode:Number,
+            SICCode:String,
             NAICSDescription:String,
-            NAICSCode:Number,
+            NAICSCode:String,
         },
         BusinessDetails:{
             DateBusinessStarted:String,
@@ -65,7 +65,7 @@ const applicationSchema = new mongoose.Schema({
             BillingAddress2:String,
             BillingCity:String,
             BillingState:String,
-            BillingZIPCode:Number
+            BillingZIPCode:String
         },
         BankDetails:{
             RoutingNumber:String,
@@ -76,7 +76,7 @@ const applicationSchema = new mongoose.Schema({
             AccountHolderAddress:String,
             AccountHolderCity:String,
             AccountHolderState:String,
-            AccountHolderZIPCode:Number
+            AccountHolderZIPCode:String
         },
     },
     Documents:[{
@@ -109,21 +109,7 @@ const applicationSchema = new mongoose.Schema({
             EINNumber:String,
             Addresses:String
         },
-        Ownership:[{
-            Name:String,
-            Percentage:String,
-            FICO:String,
-            DOB:String
-        }],
-        Weblinks:[{
-            Description:String,
-            Links:String
-        }],
-        BusinessNotes:[{
-            TypeOfNotes:String,
-            Note:String,
-            Date:String,
-        }],
+        
         OperationsNotes:{
             UnderWritingBankName:String,
             UnderWritingRoutingNumber:String,
@@ -168,9 +154,8 @@ const applicationSchema = new mongoose.Schema({
         //     CreatedDate:String,
         //     Actions:String
         // },
-        UnderWritingNotes:{
-            type:String
-        }
+        UnderWritingNotes:String
+    
     }
 })
 
