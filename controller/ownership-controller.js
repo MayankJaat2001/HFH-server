@@ -16,7 +16,7 @@ export const addOwnership= async(request,response)=>{
             DOB
         })
         await newOwnership.save();
-        return response.status(201).json({Message:'ownership added successfully!',data:{newOwnership}})
+        return response.status(201).json({Message:'ownership added successfully!',data:newOwnership.owner_id})
     }catch(err){
         return response.status(500).json({Message:'Error while saving ownership data',error:err.message})
     }

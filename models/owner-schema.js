@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 
 const ownershipSchema = new mongoose.Schema({
-        owner_id:Number,
+        owner_id:String,
         Name:String,
         Percentage:String,
         FICO:String,

@@ -254,10 +254,27 @@ export const getApplication = async(req,res)=>{
         }))
         res.status(200).json(applicationWithStatus);
     }catch(err){
-        return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
+        return res.status(500).json({message:"Error while fetching Applications",error:err.message})
 
     }
 }
+export const getAllApplication = async(req,res)=>{
+    try{
+        
+        const newApplications= await applications.find({});
+        
+        const applicationWithStatus = newApplications.map(app=>({
+            ...app.toObject(),
+            Status: app.Status || "In Process"
+        }))
+        res.status(200).json(applicationWithStatus);
+    }catch(err){
+        return res.status(500).json({message:"Error while fetching Applications",error:err.message})
+
+    }
+}
+
+
 
 export const getSingleApplication = async(req,resp)=>{
     const {id} = req.params;
