@@ -109,7 +109,21 @@ const applicationSchema = new mongoose.Schema({
             EINNumber:String,
             Addresses:String
         },
-        
+        ownership:[{
+            Name:String,
+            Percentage:String,
+            FICO:String,
+            DOB:String
+        }],
+        WebLink:[{
+            Description:String,
+            Links:String
+        }],        
+        BusinessNotes:[{
+            TypeOfNotes:String,
+            Note:String,
+            uploadedAt:{type:Date,default:Date.now},
+        }],
         OperationsNotes:{
             UnderWritingBankName:String,
             UnderWritingRoutingNumber:String,

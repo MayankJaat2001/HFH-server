@@ -208,12 +208,25 @@ export const addApplications=async(req,res)=>{
 
 export const updateApplication=async(req,res)=>{
     const {id} = req.params;
-    const updateData=req.body;
+    const {updateData,owners,businessnote,weblink}=req.body;
 
     try{
-        const ownershipData = await ownerships.find({})
-        const notesData = await notes.find({})
-        const weblinkData = await weblinks.find({})
+        // const ownershipData = await ownerships.find({})
+        // const notesData = await notes.find({})
+        // const weblinkData = await weblinks.find({})
+
+        const ownershipData = owners.map(owner => ({
+            Name:owner.Name,
+            Percentage:owner.Percentage,
+            FICO:owner.FICO,
+            DOB:owner.DOB
+        }));
+
+        const notesData=businessnote.map(note=>({
+            TypeOfNote:note.TypeOfNote,
+            Note:note.Note,
+            
+        }))
 
         const updatedFields={
             ...updateData,
