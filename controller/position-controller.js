@@ -1,4 +1,4 @@
-import positions from "../models/position-schema";
+import positions from "../models/position-schema.js";
 
 const generateUID = () => {
     return Math.floor(100 + Math.random() * 900).toString();
