@@ -3,7 +3,7 @@ import positions from "../models/position-schema.js";
 const generateUID = () => {
     return Math.floor(100 + Math.random() * 900).toString();
 };
-export const addPositions = async (req, resp) => {
+export const addPositions = async (request, response) => {
     const {
         Active,
         Position,
@@ -17,7 +17,7 @@ export const addPositions = async (req, resp) => {
         PercentageOfGross,
         ApproxDatePositionCloses,
         ApproxBalance
-    } = req.body;
+    } = request.body;
     const Position_id = generateUID()
     try {
         const newPosition = new positions({
