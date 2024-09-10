@@ -23,7 +23,7 @@ export const uploadApplicationFile=async(request,response)=>{
     }
     const fileDetails = {
         filename: request.file.filename,
-        isodoc_id: request.file.metadata.doc_id,
+        Applicationdoc_id: request.file.metadata.doc_id,
         updatedTime: request.file.uploadDate
     };
     return response.status(200).json(fileDetails);

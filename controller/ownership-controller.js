@@ -24,17 +24,17 @@ export const addOwnership= async(request,response)=>{
 
 export const updateOwnership= async(request,response)=>{
     const {id}=request.params;
-    const updateOwnership=request.body;
+    const updateOwner=request.body;
     try{
-        const updatedOwnership = await ownerships.findOneAndUpdate({owner_id:id},updateOwnership,{
+        const updatedOwner = await ownerships.findOneAndUpdate({owner_id:id},updateOwner,{
             new:true,
             runValidators:true
         })
 
-        if(!updatedOwnership){
+        if(!updatedOwner){
             return response.status(404).json({Message:"Owner not found"});
         }
-        response.status(200).json({Message:'Owner updated Successfully',data:{updatedOwnership}})
+        response.status(200).json({Message:'Owner updated Successfully',data:{updatedOwner}})
     }catch(err){
         return response.status(500).json({Message:'Error while updating Ownership',error:err.message})
     }
@@ -48,7 +48,7 @@ export const deleteOwnership= async(request,response)=>{
         if(!deletedOwnership){
             return response.status(404).json({Message:'Owner not found'})
         }
-        return response.status(200).json({Message:'Owner deleted successfullt'})
+        return response.status(200).json({Message:'Owner deleted successfully'})
     }catch(err){
         return response.status(500).json({Message:'Error while deleting Owner',error:err.message})
 

@@ -9,6 +9,7 @@ import { deleteapplicationDocument, getApplicationDocuments, uploadApplicationFi
 import { addOwnership, deleteOwnership, updateOwnership } from '../controller/ownership-controller.js';
 import { addNotes, deleteNotes, updateNotes } from '../controller/notes-controller.js';
 import { addWebLink, deleteWebLink,  updateWebLinks } from '../controller/weblink-controller.js';
+import { addPositions, deleteposition, updatePosition } from '../controller/position-controller.js';
 
 
 const router=express.Router();
@@ -34,6 +35,9 @@ router.delete('/note/delete/:id',deleteNotes);
 router.post('/add-weblink',addWebLink);
 router.put('/update-weblink/:id',updateWebLinks);
 router.delete('/weblink/delete/:id',deleteWebLink);
+router.post('/add-position',addPositions);
+router.put('/update-position/:id',updatePosition);
+router.delete('/position/delete/:id',deleteposition);
 router.get('/get-isos',getISOs);
 router.get('/get-applications',getApplication);
 router.get('/get-allapplications',getAllApplication);

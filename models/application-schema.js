@@ -5,15 +5,21 @@ const applicationSchema = new mongoose.Schema({
     ApplicationId:String,
     Overview: {
         BusinessInformation: {
-            BusinessName:String,
+            LegalName:String,
+            DoingBusinessAs:String,
+            FirstName:String,
+            LastName: String,
             EmailAddress:String,
-            ClientFirstName:String,
-            ClientLastName: String,
+            MobileNumber:String
         },
         FundingDetails: {
-            WhiteLabel: String,
+            LenderName: String,
             Installment: String,
-            Type: String,
+            TypeOfLoan: String,
+            Frequency:{
+                type:String,
+                enum:['Daily','Weekly','By-Weekly','Monthly']
+            }
         },
         ISODetails: {
             ISOName: String,
@@ -23,12 +29,10 @@ const applicationSchema = new mongoose.Schema({
         },
     },
     ClientDetails: {
-        BusinessInformation: {
-            LegalName:String,
-            DoingBusinessAs:String,
+        OwnerInformation: {
             CompanyEmail:String,
             BusinessPhoneNumber:String,
-            CellPhoneNumber:String,
+            CellNumber:String,
             PrimaryWebsite:String,
         },
         IndustryDetails:{
@@ -45,39 +49,40 @@ const applicationSchema = new mongoose.Schema({
             IncorporationState:String,
             TypesOfBusinessEntity:String,
             EINNumber:String,
+            SSN:String,
             Addresses:String,
         },
         ISOInformation:{
             ReferringISO:String,
             ISOSalesRep:String,
         },
-        CardInfo:{
-            DebitCredit:String,
-            CardType:String,
-            CardIssuer:String,
-            NameOnCard:String,
-            CardNumber:String,
-            ExpiryDate:String,
-            CVV:String
-        },
-        BillionInfo:{
-            BillingAddress:String,
-            BillingAddress2:String,
-            BillingCity:String,
-            BillingState:String,
-            BillingZIPCode:String
-        },
-        BankDetails:{
-            RoutingNumber:String,
-            AccountNumber:String,
-            BankName:String,
-            AccountType:String,
-            HolderName:String,
-            AccountHolderAddress:String,
-            AccountHolderCity:String,
-            AccountHolderState:String,
-            AccountHolderZIPCode:String
-        },
+        // CardInfo:{
+        //     DebitCredit:String,
+        //     CardType:String,
+        //     CardIssuer:String,
+        //     NameOnCard:String,
+        //     CardNumber:String,
+        //     ExpiryDate:String,
+        //     CVV:String
+        // },
+        // BillingInfo:{
+        //     BillingAddress:String,
+        //     BillingAddress2:String,
+        //     BillingCity:String,
+        //     BillingState:String,
+        //     BillingZIPCode:String
+        // },
+        // BankDetails:{
+        //     RoutingNumber:String,
+        //     AccountNumber:String,
+        //     BankName:String,
+        //     AccountType:String,
+        //     HolderName:String,
+        //     AccountHolderAddress:String,
+        //     AccountHolderCity:String,
+        //     AccountHolderState:String,
+        //     AccountHolderZIPCode:String
+        // },
     },
     Documents:[{
         filename:String,

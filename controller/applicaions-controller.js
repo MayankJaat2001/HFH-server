@@ -18,17 +18,18 @@ export const addApplications=async(req,res)=>{
         AgentUID,
         Overview:{
             BusinessInformation: {
-                BusinessName,
+                LegalName,
+                DoingBusinessAs,
+                FirstName,
+                LastName,
                 EmailAddress,
-                ClientFirstName,
-                ClientLastName,
-                Web,
-                PhoneNumber
+                MobileNumber
             },
             FundingDetails: {
-                WhiteLabel,
+                LenderName,
                 Installment,
-                Type
+                TypeOfLoan,
+                Frequency
             },
             ISODetails: {
                 ISOName,
@@ -39,12 +40,10 @@ export const addApplications=async(req,res)=>{
         },
             ClientDetails:{
                 
-                BusinessInformation: {
-                    LegalName,
-                DoingBusinessAs,
+                OwnerInformation: {
                 CompanyEmail,
-                BusnessPhoneNumber,
-                CellPhoneNumber,
+                BusinessPhoneNumber,
+                CellNumber,
                 PrimaryWebsite
             },
             IndustryDetails: {
@@ -61,39 +60,40 @@ export const addApplications=async(req,res)=>{
                 IncorporationState,
                 TypesOfBusinessEntity,
                 EINNumber,
+                SSN,
                 Addresses
             },
             ISOInformation: {
                 ReferringISO,
                 ISOSalesRep: ClientDetailsISOSalesRep
             },
-            CardInfo:{
-                DebitCredit,
-                CardType,
-                CardIssuer,
-                NameOnCard,
-                CardNumber,
-                ExpiryDate,
-                CVV
-            },
-            BillionInfo:{
-                BillingAddress,
-                BillingAddress2,
-                BillingCity,
-                BillingState,
-                BillingZIPCode
-            },
-            BankDetails:{
-                RoutingNumber,
-                AccountNumber,
-                BankName,
-                AccountType,
-                HolderName,
-                AccountHolderAddress,
-                AccountHolderCity,
-                AccountHolderState,
-                AccountHolderZIPCode
-            },
+            // CardInfo:{
+            //     DebitCredit,
+            //     CardType,
+            //     CardIssuer,
+            //     NameOnCard,
+            //     CardNumber,
+            //     ExpiryDate,
+            //     CVV
+            // },
+            // BillionInfo:{
+            //     BillingAddress,
+            //     BillingAddress2,
+            //     BillingCity,
+            //     BillingState,
+            //     BillingZIPCode
+            // },
+            // BankDetails:{
+            //     RoutingNumber,
+            //     AccountNumber,
+            //     BankName,
+            //     AccountType,
+            //     HolderName,
+            //     AccountHolderAddress,
+            //     AccountHolderCity,
+            //     AccountHolderState,
+            //     AccountHolderZIPCode
+            // },
         },
         Notes:{
             NoteType,
@@ -114,17 +114,18 @@ export const addApplications=async(req,res)=>{
             ApplicationId,
             Overview:{
                 BusinessInformation: {
-                    BusinessName,
+                    LegalName,
+                    DoingBusinessAs,
+                    FirstName,
+                    LastName,
                     EmailAddress,
-                    ClientFirstName,
-                    ClientLastName,
-                    Web,
-                    PhoneNumber
+                    MobileNumber
                 },
                 FundingDetails: {
-                    WhiteLabel,
+                    LenderName,
                     Installment,
-                    Type
+                    TypeOfLoan,
+                    Frequency
                 },
                 ISODetails: {
                     ISOName,
@@ -135,12 +136,10 @@ export const addApplications=async(req,res)=>{
             },
                 ClientDetails:{
                     
-                    BusinessInformation: {
-                        LegalName,
-                    DoingBusinessAs,
+                    OwnerInformation: {
                     CompanyEmail,
-                    BusnessPhoneNumber,
-                    CellPhoneNumber,
+                    BusinessPhoneNumber,
+                    CellNumber,
                     PrimaryWebsite
                 },
                 IndustryDetails: {
@@ -157,39 +156,40 @@ export const addApplications=async(req,res)=>{
                     IncorporationState,
                     TypesOfBusinessEntity,
                     EINNumber,
+                    SSN,
                     Addresses
                 },
                 ISOInformation: {
                     ReferringISO,
                     ISOSalesRep: ClientDetailsISOSalesRep
                 },
-                CardInfo:{
-                    DebitCredit,
-                    CardType,
-                    CardIssuer,
-                    NameOnCard,
-                    CardNumber,
-                    ExpiryDate,
-                    CVV
-                },
-                BillionInfo:{
-                    BillingAddress,
-                    BillingAddress2,
-                    BillingCity,
-                    BillingState,
-                    BillingZIPCode
-                },
-                BankDetails:{
-                    RoutingNumber,
-                    AccountNumber,
-                    BankName,
-                    AccountType,
-                    HolderName,
-                    AccountHolderAddress,
-                    AccountHolderCity,
-                    AccountHolderState,
-                    AccountHolderZIPCode
-                },
+            //     CardInfo:{
+            //         DebitCredit,
+            //         CardType,
+            //         CardIssuer,
+            //         NameOnCard,
+            //         CardNumber,
+            //         ExpiryDate,
+            //         CVV
+            //     },
+            //     BillionInfo:{
+            //         BillingAddress,
+            //         BillingAddress2,
+            //         BillingCity,
+            //         BillingState,
+            //         BillingZIPCode
+            //     },
+            //     BankDetails:{
+            //         RoutingNumber,
+            //         AccountNumber,
+            //         BankName,
+            //         AccountType,
+            //         HolderName,
+            //         AccountHolderAddress,
+            //         AccountHolderCity,
+            //         AccountHolderState,
+            //         AccountHolderZIPCode
+            //     },
             },
             Documents:fileDocuments,
             Notes:{
@@ -227,6 +227,11 @@ export const updateApplication=async(req,res)=>{
             Note:note.Note,
             
         }))
+        const linkData=weblink.map(link=>({
+            Description:link.Description,
+            Links:link.Links,
+            
+        }))
 
         const updatedFields={
             ...updateData,
@@ -234,7 +239,7 @@ export const updateApplication=async(req,res)=>{
                 ...updateData.UnderWriting,
                 Ownership:ownershipData,
                 BusinessDetails:notesData,
-                Weblinks:weblinkData
+                Weblinks:linkData
             },
             Status: "UnderWriting"
         };
