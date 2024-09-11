@@ -44,7 +44,8 @@ export const addApplications=async(req,res)=>{
                 CompanyEmail,
                 BusinessPhoneNumber,
                 CellNumber,
-                PrimaryWebsite
+                PrimaryWebsite,
+                Amount
             },
             IndustryDetails: {
                 SICDescription,
@@ -140,7 +141,8 @@ export const addApplications=async(req,res)=>{
                     CompanyEmail,
                     BusinessPhoneNumber,
                     CellNumber,
-                    PrimaryWebsite
+                    PrimaryWebsite,
+                    Amount
                 },
                 IndustryDetails: {
                     SICDescription,

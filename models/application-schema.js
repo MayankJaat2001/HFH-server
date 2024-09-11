@@ -34,6 +34,7 @@ const applicationSchema = new mongoose.Schema({
             BusinessPhoneNumber:String,
             CellNumber:String,
             PrimaryWebsite:String,
+            Amount:String
         },
         IndustryDetails:{
             SICDescription:String,
