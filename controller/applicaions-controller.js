@@ -210,7 +210,20 @@ export const addApplications=async(req,res)=>{
 
 export const updateApplication=async(req,res)=>{
     const {id} = req.params;
-    const {updateData,owners,businessnote,weblink}=req.body;
+    const {updateData,owners,businessnote,weblink,
+        Decision:{
+            Status,
+            Frequency,
+            FundingAmount,
+            PaybackAmount,
+            HashOfPayment,
+            Payment,
+            Tenure,
+            FactorRate,
+            PendingMessage,
+            DeclineMessage
+        }
+    }=req.body;
 
     try{
         // const ownershipData = await ownerships.find({})
@@ -241,7 +254,20 @@ export const updateApplication=async(req,res)=>{
                 ...updateData.UnderWriting,
                 Ownership:ownershipData,
                 BusinessDetails:notesData,
-                Weblinks:linkData
+                Weblinks:linkData,
+            },
+            Decision: {
+                ...updateData.Decision,
+                Status,
+                Frequency,
+                FundingAmount,
+                PaybackAmount,
+                HashOfPayment,
+                Payment,
+                Tenure,
+                FactorRate,
+                PendingMessage,
+                DeclineMessage
             },
             Status: "UnderWriting"
         };

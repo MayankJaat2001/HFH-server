@@ -97,3 +97,16 @@ export const getAllISOs = async(req,res)=>{
 
     }
 }
+
+export const getSingleISOs = async(req,resp)=>{
+    const {id} = req.params;
+    try{
+        const singleISO = await ISOs.findOne({ISOUID:id})
+        if(!singleISO){
+            return resp.status(404).json({message:'ISO not Found'})
+        }
+        resp.status(201).json(singleISO)
+    }catch(err){
+        resp.status(500).json({message:'Error while fetching your application',error:err.message})
+    }
+}
