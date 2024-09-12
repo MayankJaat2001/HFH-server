@@ -7,21 +7,19 @@ import weblinks from "../models/weblink-schema.js";
 
 dotenv.config()
 
-const serverurl=process.env.SERVER_URL;
+const serverurl = process.env.SERVER_URL;
 
 const generateUID = () => {
     return Math.floor(1000 + Math.random() * 9000).toString();
 };
 
-export const addApplications=async(req,res)=>{
+export const addApplications = async (req, res) => {
     const {
         AgentUID,
-        Overview:{
+        Overview: {
             BusinessInformation: {
                 LegalName,
                 DoingBusinessAs,
-                FirstName,
-                LastName,
                 EmailAddress,
                 MobileNumber
             },
@@ -38,14 +36,17 @@ export const addApplications=async(req,res)=>{
                 ISOManager
             },
         },
-            ClientDetails:{
-                
-                OwnerInformation: {
+        ClientDetails: {
+
+            OwnerInformation: {
+                FirstName,
+                LastName,
                 CompanyEmail,
                 BusinessPhoneNumber,
                 CellNumber,
                 PrimaryWebsite,
-                Amount
+                Amount,
+                SSN
             },
             IndustryDetails: {
                 SICDescription,
@@ -61,7 +62,6 @@ export const addApplications=async(req,res)=>{
                 IncorporationState,
                 TypesOfBusinessEntity,
                 EINNumber,
-                SSN,
                 Addresses
             },
             ISOInformation: {
@@ -96,29 +96,27 @@ export const addApplications=async(req,res)=>{
             //     AccountHolderZIPCode
             // },
         },
-        Notes:{
+        Notes: {
             NoteType,
             NoteTemplate,
             NoteContent
         },
-        files        
-    }=req.body;
-    const ApplicationId=generateUID();
+        files
+    } = req.body;
+    const ApplicationId = generateUID();
     // const mydata= await mongoose.connection.db.collection('application.files').find().toArray();
-                const fileDocuments = files.map(file => ({
-                    filename:file.filename,
-                    path:`${serverurl}/application/${file.docid}`
-                }));
-    try{
+    const fileDocuments = files.map(file => ({
+        filename: file.filename,
+        path: `${serverurl}/application/${file.docid}`
+    }));
+    try {
         const newApplication = new applications({
             AgentUID,
             ApplicationId,
-            Overview:{
+            Overview: {
                 BusinessInformation: {
                     LegalName,
                     DoingBusinessAs,
-                    FirstName,
-                    LastName,
                     EmailAddress,
                     MobileNumber
                 },
@@ -135,14 +133,17 @@ export const addApplications=async(req,res)=>{
                     ISOManager
                 },
             },
-                ClientDetails:{
-                    
-                    OwnerInformation: {
+            ClientDetails: {
+
+                OwnerInformation: {
+                    FirstName,
+                    LastName,
                     CompanyEmail,
                     BusinessPhoneNumber,
                     CellNumber,
                     PrimaryWebsite,
-                    Amount
+                    Amount,
+                    SSN
                 },
                 IndustryDetails: {
                     SICDescription,
@@ -158,43 +159,42 @@ export const addApplications=async(req,res)=>{
                     IncorporationState,
                     TypesOfBusinessEntity,
                     EINNumber,
-                    SSN,
                     Addresses
                 },
                 ISOInformation: {
                     ReferringISO,
                     ISOSalesRep: ClientDetailsISOSalesRep
                 },
-            //     CardInfo:{
-            //         DebitCredit,
-            //         CardType,
-            //         CardIssuer,
-            //         NameOnCard,
-            //         CardNumber,
-            //         ExpiryDate,
-            //         CVV
-            //     },
-            //     BillionInfo:{
-            //         BillingAddress,
-            //         BillingAddress2,
-            //         BillingCity,
-            //         BillingState,
-            //         BillingZIPCode
-            //     },
-            //     BankDetails:{
-            //         RoutingNumber,
-            //         AccountNumber,
-            //         BankName,
-            //         AccountType,
-            //         HolderName,
-            //         AccountHolderAddress,
-            //         AccountHolderCity,
-            //         AccountHolderState,
-            //         AccountHolderZIPCode
-            //     },
+                //     CardInfo:{
+                //         DebitCredit,
+                //         CardType,
+                //         CardIssuer,
+                //         NameOnCard,
+                //         CardNumber,
+                //         ExpiryDate,
+                //         CVV
+                //     },
+                //     BillionInfo:{
+                //         BillingAddress,
+                //         BillingAddress2,
+                //         BillingCity,
+                //         BillingState,
+                //         BillingZIPCode
+                //     },
+                //     BankDetails:{
+                //         RoutingNumber,
+                //         AccountNumber,
+                //         BankName,
+                //         AccountType,
+                //         HolderName,
+                //         AccountHolderAddress,
+                //         AccountHolderCity,
+                //         AccountHolderState,
+                //         AccountHolderZIPCode
+                //     },
             },
-            Documents:fileDocuments,
-            Notes:{
+            Documents: fileDocuments,
+            Notes: {
                 NoteType,
                 NoteTemplate,
                 NoteContent
@@ -202,16 +202,16 @@ export const addApplications=async(req,res)=>{
             Status: "In Process"
         });
         await newApplication.save();
-        res.status(201).json({Message:'Application Details and Documents added Successfully',application_Id:newApplication.ApplicationId})
-    }catch(err){
+        res.status(201).json({ Message: 'Application Details and Documents added Successfully', application_Id: newApplication.ApplicationId })
+    } catch (err) {
         res.status(500).json({ Message: 'Error saving application', error: err.message });
     }
 }
 
-export const updateApplication=async(req,res)=>{
-    const {id} = req.params;
-    const {updateData,owners,businessnote,weblink,
-        Decision:{
+export const updateApplication = async (req, res) => {
+    const { id } = req.params;
+    const { updateData, owners, businessnote, weblink,
+        Decision: {
             Status,
             Frequency,
             FundingAmount,
@@ -223,38 +223,38 @@ export const updateApplication=async(req,res)=>{
             PendingMessage,
             DeclineMessage
         }
-    }=req.body;
+    } = req.body;
 
-    try{
+    try {
         // const ownershipData = await ownerships.find({})
         // const notesData = await notes.find({})
         // const weblinkData = await weblinks.find({})
 
         const ownershipData = owners.map(owner => ({
-            Name:owner.Name,
-            Percentage:owner.Percentage,
-            FICO:owner.FICO,
-            DOB:owner.DOB
+            Name: owner.Name,
+            Percentage: owner.Percentage,
+            FICO: owner.FICO,
+            DOB: owner.DOB
         }));
 
-        const notesData=businessnote.map(note=>({
-            TypeOfNote:note.TypeOfNote,
-            Note:note.Note,
-            
+        const notesData = businessnote.map(note => ({
+            TypeOfNote: note.TypeOfNote,
+            Note: note.Note,
+
         }))
-        const linkData=weblink.map(link=>({
-            Description:link.Description,
-            Links:link.Links,
-            
+        const linkData = weblink.map(link => ({
+            Description: link.Description,
+            Links: link.Links,
+
         }))
 
-        const updatedFields={
+        const updatedFields = {
             ...updateData,
-            UnderWriting:{
+            UnderWriting: {
                 ...updateData.UnderWriting,
-                Ownership:ownershipData,
-                BusinessDetails:notesData,
-                Weblinks:linkData,
+                Ownership: ownershipData,
+                BusinessDetails: notesData,
+                Weblinks: linkData,
             },
             Decision: {
                 ...updateData.Decision,
@@ -272,65 +272,65 @@ export const updateApplication=async(req,res)=>{
             Status: "UnderWriting"
         };
 
-        const updatedApplication = await applications.findOneAndUpdate({ApplicationId:id},updatedFields,{
-            new:true,
-            runValidators:true
+        const updatedApplication = await applications.findOneAndUpdate({ ApplicationId: id }, updatedFields, {
+            new: true,
+            runValidators: true
         });
 
-        if(!updatedApplication){
-            return res.status(404).json({message:"Application is not found"});
+        if (!updatedApplication) {
+            return res.status(404).json({ message: "Application is not found" });
         }
-        return res.status(200).json({message:"Application updated successfully",data:updatedApplication})
-    }catch(err){
-        return res.status(500).json({message:"Error while updating Application",error:err.message,err})
+        return res.status(200).json({ message: "Application updated successfully", data: updatedApplication })
+    } catch (err) {
+        return res.status(500).json({ message: "Error while updating Application", error: err.message, err })
     }
 }
 
-export const getApplication = async(req,res)=>{
-    try{
-        const agentUID=req.query.agentUID;
-        if(!agentUID){
-            return res.status(400).json({message:"AgentUID is required"})
+export const getApplication = async (req, res) => {
+    try {
+        const agentUID = req.query.agentUID;
+        if (!agentUID) {
+            return res.status(400).json({ message: "AgentUID is required" })
         }
-        const newApplications= await applications.find({"AgentUID":agentUID});
-        
-        const applicationWithStatus = newApplications.map(app=>({
+        const newApplications = await applications.find({ "AgentUID": agentUID });
+
+        const applicationWithStatus = newApplications.map(app => ({
             ...app.toObject(),
             Status: app.Status || "In Process"
         }))
         res.status(200).json(applicationWithStatus);
-    }catch(err){
-        return res.status(500).json({message:"Error while fetching Applications",error:err.message})
+    } catch (err) {
+        return res.status(500).json({ message: "Error while fetching Applications", error: err.message })
 
     }
 }
-export const getAllApplication = async(req,res)=>{
-    try{
-        
-        const newApplications= await applications.find({});
-        
-        const applicationWithStatus = newApplications.map(app=>({
+export const getAllApplication = async (req, res) => {
+    try {
+
+        const newApplications = await applications.find({});
+
+        const applicationWithStatus = newApplications.map(app => ({
             ...app.toObject(),
             Status: app.Status || "In Process"
         }))
         res.status(200).json(applicationWithStatus);
-    }catch(err){
-        return res.status(500).json({message:"Error while fetching Applications",error:err.message})
+    } catch (err) {
+        return res.status(500).json({ message: "Error while fetching Applications", error: err.message })
 
     }
 }
 
 
 
-export const getSingleApplication = async(req,resp)=>{
-    const {id} = req.params;
-    try{
-        const singleApplication = await applications.findOne({ApplicationId:id})
-        if(!singleApplication){
-            return resp.status(404).json({message:'Application not Found'})
+export const getSingleApplication = async (req, resp) => {
+    const { id } = req.params;
+    try {
+        const singleApplication = await applications.findOne({ ApplicationId: id })
+        if (!singleApplication) {
+            return resp.status(404).json({ message: 'Application not Found' })
         }
         resp.status(201).json(singleApplication)
-    }catch(err){
-        resp.status(500).json({message:'Error while fetching your application',error:err.message})
+    } catch (err) {
+        resp.status(500).json({ message: 'Error while fetching your application', error: err.message })
     }
 }

@@ -7,8 +7,6 @@ const applicationSchema = new mongoose.Schema({
         BusinessInformation: {
             LegalName:String,
             DoingBusinessAs:String,
-            FirstName:String,
-            LastName: String,
             EmailAddress:String,
             MobileNumber:String
         },
@@ -30,11 +28,14 @@ const applicationSchema = new mongoose.Schema({
     },
     ClientDetails: {
         OwnerInformation: {
+            FirstName:String,
+            LastName:String,
             CompanyEmail:String,
             BusinessPhoneNumber:String,
             CellNumber:String,
             PrimaryWebsite:String,
-            Amount:String
+            Amount:String,
+            SSN:String
         },
         IndustryDetails:{
             SICDescription:String,
@@ -50,7 +51,6 @@ const applicationSchema = new mongoose.Schema({
             IncorporationState:String,
             TypesOfBusinessEntity:String,
             EINNumber:String,
-            SSN:String,
             Addresses:String,
         },
         ISOInformation:{
