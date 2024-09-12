@@ -10,7 +10,8 @@ const transporter = nodemailer.createTransport({
     secure: true, // Use true for port 465, false for all other ports
     auth: {
       user: process.env.SMTP_MAIL,
-      pass: process.env.SMTP_PASSWORD,
+      // pass: process.env.SMTP_PASSWORD,
+      pass: 'pdxn bnxe opbn lljb',
     },
   });
 
@@ -27,17 +28,20 @@ const transporter = nodemailer.createTransport({
   //   else
   //   console.log('Email sent Sucessfully')
   // })
-  export const sendEmail = async (email, htmlContent) => {
+  export const sendEmail = async (req,res) => {
+    const body =req.body
+    console.log(body)
     const mailOptions = {
         from: process.env.SMTP_MAIL,
-        to: email,
+        to: body.mail,
         subject: 'HFH - Application Contract',
-        html: htmlContent
+        html: body.content
     };
 
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent: ' + res);
+        res.status(200).json({Message:"Email sent"})
     } catch (error) {
         console.error('Error sending email: ', error);
         throw error;

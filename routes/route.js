@@ -10,6 +10,7 @@ import { addOwnership, deleteOwnership, updateOwnership } from '../controller/ow
 import { addNotes, deleteNotes, updateNotes } from '../controller/notes-controller.js';
 import { addWebLink, deleteWebLink,  updateWebLinks } from '../controller/weblink-controller.js';
 import { addPositions, deleteposition, updatePosition } from '../controller/position-controller.js';
+import { sendEmail } from '../controller/nodemailer.js';
 
 
 const router=express.Router();
@@ -42,5 +43,6 @@ router.get('/get-isos',getISOs);
 router.get('/get-applications',getApplication);
 router.get('/get-allapplications',getAllApplication);
 router.get('/get-allisos',getAllISOs);
+router.post('/send-mail',sendEmail)
 
 export default router;
