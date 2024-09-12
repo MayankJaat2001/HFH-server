@@ -175,19 +175,19 @@ const applicationSchema = new mongoose.Schema({
         //     Actions:String
         // },
         UnderWritingNotes:String,
-        Decision:{
-            Status:String,
-            Frequency: String,
-            FundingAmount: String,
-            PaybackAmount: String,
-            HashOfPayment: String,
-            Payment: String,
-            Tenure: String,
-            FactorRate: String,
-            PendingMessage:String,
-            DeclineMessage:String
-        }
-    
+        
+    },
+    Decision:{
+        Status:String,
+        Frequency: String,
+        FundingAmount: String,
+        PaybackAmount: String,
+        HashOfPayment: String,
+        Payment: String,
+        Tenure: String,
+        FactorRate: String,
+        PendingMessage:String,
+        DeclineMessage:String
     }
 })
 
