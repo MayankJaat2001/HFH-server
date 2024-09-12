@@ -211,7 +211,6 @@ export const addApplications = async (req, res) => {
 export const updateApplication = async (req, res) => {
     const { id } = req.params;
     const { updateData} = req.body;
-    console.log(updateData)
     try {
         // const ownershipData = await ownerships.find({})
         // const notesData = await notes.find({})

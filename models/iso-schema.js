@@ -18,10 +18,10 @@ const isoSchema = new mongoose.Schema({
                 type:String,
             },
             WorkPhone:{
-                type:Number,
+                type:String,
             },
             CellPhone:{
-                type:Number,
+                type:String,
             },
             ISOManager:{
                 type:String,
@@ -39,10 +39,10 @@ const isoSchema = new mongoose.Schema({
             type:String,
         },
         OwnerWorkPhone:{
-            type:Number,
+            type:String,
         },
         OwnerCellPhone:{
-            type:Number,
+            type:String,
         },
     },
     RepaymentPlan:{
@@ -57,10 +57,10 @@ const isoSchema = new mongoose.Schema({
             type:String,
         },
         RepaymentWorkPhone:{
-            type:Number,
+            type:String,
         },
         RepaymentCellPhone:{
-            type:Number,
+            type:String,
         },
         RepaymentAddress:{
             type:String,

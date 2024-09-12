@@ -14,24 +14,12 @@ const generateUID = () => {
 
 export const addISOs =async(req,res)=>{
         const {AgentUID,
-            ISOname,
-            Region,
-            WorkPhone,
-            CellPhone,
-            ISOManager,
-            OwnerFirstName,
-            OwnerLastName,
-            OwnerEmail,
-            OwnerWorkPhone,
-            OwnerCellPhone,
-            RepaymentFirstName,
-            RepaymentLastName,
-            RepaymentEmail,
-            RepaymentWorkPhone,
-            RepaymentCellPhone,
-            RepaymentAddress,
+            Details,
+            OwnerContract,
+            RepaymentPlan,
             files
             } =req.body;
+            console.log(req.body)
             try {
                 // const mydata= await mongoose.connection.db.collection('fs.files').find().toArray();
                 const fileDocuments = files.map(file => ({
@@ -43,29 +31,9 @@ export const addISOs =async(req,res)=>{
             const isos=new ISOs({
                 AgentUID,
                 ISOUID,
-                Details:{                    
-                    ISOname,
-                    Region,
-                    WorkPhone,
-                    CellPhone,
-                    ISOManager,
-                },
-                OwnerContract:{
-
-                    OwnerFirstName,
-                    OwnerLastName,
-                    OwnerEmail,
-                    OwnerWorkPhone,
-                    OwnerCellPhone,
-                },
-                RepaymentPlan:{
-                    RepaymentFirstName,
-                    RepaymentLastName,
-                    RepaymentEmail,
-                    RepaymentWorkPhone,
-                    RepaymentCellPhone,
-                    RepaymentAddress,
-                },
+                Details,
+                OwnerContract,
+                RepaymentPlan,
                 document:fileDocuments,
             });
             await isos.save();
