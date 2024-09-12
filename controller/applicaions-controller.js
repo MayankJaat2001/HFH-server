@@ -230,19 +230,19 @@ export const updateApplication = async (req, res) => {
         // const notesData = await notes.find({})
         // const weblinkData = await weblinks.find({})
 
-        const ownershipData = owners.map(owner => ({
+        const ownershipData = owners?.map(owner => ({
             Name: owner.Name,
             Percentage: owner.Percentage,
             FICO: owner.FICO,
             DOB: owner.DOB
         }));
 
-        const notesData = businessnote.map(note => ({
+        const notesData = businessnote?.map(note => ({
             TypeOfNote: note.TypeOfNote,
             Note: note.Note,
 
         }))
-        const linkData = weblink.map(link => ({
+        const linkData = weblink?.map(link => ({
             Description: link.Description,
             Links: link.Links,
 
