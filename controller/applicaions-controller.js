@@ -210,66 +210,18 @@ export const addApplications = async (req, res) => {
 
 export const updateApplication = async (req, res) => {
     const { id } = req.params;
-    const { updateData, owners, businessnote, weblink,
-        Decision: {
-            Status,
-            Frequency,
-            FundingAmount,
-            PaybackAmount,
-            HashOfPayment,
-            Payment,
-            Tenure,
-            FactorRate,
-            PendingMessage,
-            DeclineMessage
-        }
-    } = req.body;
-
+    const { updateData} = req.body;
+    console.log(updateData)
     try {
         // const ownershipData = await ownerships.find({})
         // const notesData = await notes.find({})
         // const weblinkData = await weblinks.find({})
 
-        const ownershipData = owners?.map(owner => ({
-            Name: owner.Name,
-            Percentage: owner.Percentage,
-            FICO: owner.FICO,
-            DOB: owner.DOB
-        }));
-
-        const notesData = businessnote?.map(note => ({
-            TypeOfNote: note.TypeOfNote,
-            Note: note.Note,
-
-        }))
-        const linkData = weblink?.map(link => ({
-            Description: link.Description,
-            Links: link.Links,
-
-        }))
+    
 
         const updatedFields = {
             ...updateData,
-            UnderWriting: {
-                ...updateData.UnderWriting,
-                Ownership: ownershipData,
-                BusinessDetails: notesData,
-                Weblinks: linkData,
-            },
-            Decision: {
-                ...updateData.Decision,
-                Status,
-                Frequency,
-                FundingAmount,
-                PaybackAmount,
-                HashOfPayment,
-                Payment,
-                Tenure,
-                FactorRate,
-                PendingMessage,
-                DeclineMessage
-            },
-            Status: "UnderWriting"
+            Status: updateData?.Decision.Status || "UnderWriting"
         };
 
         const updatedApplication = await applications.findOneAndUpdate({ ApplicationId: id }, updatedFields, {
