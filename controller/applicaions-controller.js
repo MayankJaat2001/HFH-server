@@ -211,16 +211,22 @@ export const addApplications = async (req, res) => {
 
 export const updateApplication = async (req, res) => {
     const { id } = req.params;
-    const { updateData} = req.body;
+    const { updateData ,files} = req.body;
+    console.log("Data:",req.body)
+    const fileDocuments = files.map(file => ({
+        filename: file.filename,
+        path: `${serverurl}/application/${file.docid}`,
+        docid:file.docid
+    }));
     try {
         // const ownershipData = await ownerships.find({})
         // const notesData = await notes.find({})
         // const weblinkData = await weblinks.find({})
 
-    
 
         const updatedFields = {
             ...updateData,
+            Documents: fileDocuments,
             Status: updateData?.Decision.Status || "UnderWriting"
         };
 
