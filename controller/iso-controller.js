@@ -24,7 +24,8 @@ export const addISOs =async(req,res)=>{
                 // const mydata= await mongoose.connection.db.collection('fs.files').find().toArray();
                 const fileDocuments = files.map(file => ({
                     filename:file.filename,
-                    path:`${serverurl}/file/${file.docid}`
+                    path:`${serverurl}/file/${file.docid}`,
+                    docid:file.docid
                 }));
             
             const ISOUID = generateUID();

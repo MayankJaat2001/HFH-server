@@ -68,6 +68,7 @@ const isoSchema = new mongoose.Schema({
     },
     document:[
         {
+            docid:String,
             filename:String,
             path:String,
             uploadedAt:{type:Date,default:Date.now},
