@@ -88,6 +88,7 @@ const applicationSchema = new mongoose.Schema({
     Documents:[{
         filename:String,
             path:String,
+            docid:String,
             uploadedAt:{type:Date,default:Date.now},
 }],
     Notes:{
