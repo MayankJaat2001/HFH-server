@@ -107,7 +107,8 @@ export const addApplications = async (req, res) => {
     // const mydata= await mongoose.connection.db.collection('application.files').find().toArray();
     const fileDocuments = files.map(file => ({
         filename: file.filename,
-        path: `${serverurl}/application/${file.docid}`
+        path: `${serverurl}/application/${file.docid}`,
+        docid:file.docid
     }));
     try {
         const newApplication = new applications({
