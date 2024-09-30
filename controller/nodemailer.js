@@ -1,7 +1,10 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import crypto from 'crypto'
 
 dotenv.config()
+
+const otpStorage = {};
 
 const transporter = nodemailer.createTransport({
     service:'gmail',
@@ -45,5 +48,41 @@ const transporter = nodemailer.createTransport({
     } catch (error) {
         console.error('Error sending email: ', error);
         throw error;
+    }
+  }
+
+  const generateOTP = ()=>{
+    return crypto.randomInt(100000,999999);
+  }
+
+  export const sendingOTP = async(req,resp)=>{
+    const {email}=req.body;
+    const otp = generateOTP();
+
+    otpStorage[email]=otp;
+
+    const mailOptions={
+      from:process.env.SMTP_MAIL,
+      to:email,
+      subject:"Verify your Email!",
+      text: `Your OTP is ${otp}`
+    }
+
+    try{
+      await transporter.sendMail(mailOptions);
+      resp.status(200).json({Message:"OTP sent to email"})
+    }catch(err){
+      resp.status(500).json({Message:"Error sending OTP",err})
+    }
+  }
+
+  export const verifyOTP =async(req,resp)=>{
+    const {email,otp} =req.body;
+
+    if(otpStorage[email] && otpStorage[email]===parseInt(otp)){
+      delete otpStorage[email]
+      resp.status(200).json({Message:"OTP verified Sucessfully"})
+    }else{
+      resp.status(400).json({Message:"Invalid OTP"})
     }
   }

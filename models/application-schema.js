@@ -6,9 +6,21 @@ const applicationSchema = new mongoose.Schema({
     Overview: {
         BusinessInformation: {
             LegalName:String,
-            DoingBusinessAs:String,
+            DBAName:String,
             EmailAddress:String,
-            MobileNumber:String
+            BusinessPhoneNumber:String,
+            PreferredContactPhoneNumber:String,
+            EntityType:String,
+            FederalTaxID:String,
+            BusinessStartDateUnderCurrentOwnership:String,
+            StateofIncorporation:String,
+            IndustryType:String,
+            BusinessStructure:String,
+            City:String,
+            State:String,
+            ZIP:String,
+            SourcesofRevenue:String,
+            BusinessLocation:String,
         },
         FundingDetails: {
             LenderName: String,
@@ -27,7 +39,7 @@ const applicationSchema = new mongoose.Schema({
         },
     },
     ClientDetails: {
-        OwnerInformation: {
+        OwnerInformation: [{
             FirstName:String,
             LastName:String,
             CompanyEmail:String,
@@ -35,8 +47,15 @@ const applicationSchema = new mongoose.Schema({
             CellNumber:String,
             PrimaryWebsite:String,
             Amount:String,
-            SSN:String
-        },
+            SSN:String,
+            DateOFBirth:String,
+            Religion:String,
+            Ethnicity:String,
+            HomeStreetAddress:String,
+            City:String,
+            State:String,
+            ZIP:String,
+        }],
         IndustryDetails:{
             SICDescription:String,
             SICCode:String,
@@ -135,7 +154,9 @@ const applicationSchema = new mongoose.Schema({
             UnderWritingBankName:String,
             UnderWritingRoutingNumber:String,
             UnderWritingAccountNumber:String,
-            UnderWritingAccountType:String
+            UnderWritingAccountType:String,
+            SourcesofRevenue:String,
+            AverageBalance:String
         },
         // SavedPositions:{
         //     Active:String,
@@ -188,7 +209,18 @@ const applicationSchema = new mongoose.Schema({
         Tenure: String,
         FactorRate: String,
         PendingMessage:String,
-        DeclineMessage:String
+        DeclineMessage:String,
+        DeclineMessageOther:String
+    },
+    BankInformation:{
+        BankDetails:{
+            AccountNumber:String,
+            BankName:String,
+            CurrentAccountBalance:String,
+            BusinessModel:String,
+            PurposeofFunds:String,
+            PurposeofPreviousFunds:String
+       }
     }
 })
 

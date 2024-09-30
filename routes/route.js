@@ -1,5 +1,5 @@
 import express from 'express';
-import {addUser ,userLogin} from '../controller/user-controller.js'
+import {addUser ,ISOSignup,userLogin} from '../controller/user-controller.js'
 import { addISOs, getAllISOs, getISOs, getSingleISOs } from '../controller/iso-controller.js';
 import { deleteDocument, getDocuments, uploadFile } from '../controller/doc-controller.js';
 import upload from '../middlewares/uploads.js';
@@ -10,7 +10,7 @@ import { addOwnership, deleteOwnership, updateOwnership } from '../controller/ow
 import { addNotes, deleteNotes, updateNotes } from '../controller/notes-controller.js';
 import { addWebLink, deleteWebLink,  updateWebLinks } from '../controller/weblink-controller.js';
 import { addPositions, deleteposition, updatePosition } from '../controller/position-controller.js';
-import { sendEmail } from '../controller/nodemailer.js';
+import { sendEmail, sendingOTP, verifyOTP } from '../controller/nodemailer.js';
 
 
 const router=express.Router();
@@ -43,7 +43,10 @@ router.get('/get-isos',getISOs);
 router.get('/get-applications',getApplication);
 router.get('/get-allapplications',getAllApplication);
 router.get('/get-allisos',getAllISOs);
-router.get('/singleiso/:id',getSingleISOs)
-router.post('/send-mail',sendEmail)
+router.get('/singleiso/:id',getSingleISOs);
+router.post('/send-mail',sendEmail);
+router.post('/iso-signup',ISOSignup);
+router.post('/send-otp',sendingOTP);
+router.post('/verify-otp',verifyOTP);
 
 export default router;

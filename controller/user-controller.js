@@ -2,6 +2,7 @@ import User from '../models/user-schema.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
+import { isosignup } from '../models/iso-signup.js'
 
 dotenv.config()
 
@@ -41,6 +42,45 @@ export const addUser = async(req,res)=>{
 }catch(err){
     res.status(500).json({err:'server error'});
 }
+}
+
+export const ISOSignup = async(req,resp)=>{
+    try{
+        const {
+            email,
+            password,
+            cell,
+            pointOfContact,
+            religion,
+            ethnicity,
+            stackingHistory,
+            chargesPSF
+        }=req.body
+
+        let iso = await isosignup.findOne({email});
+    if(iso){
+        return resp.status(400).json({Message:'ISO already exist'});
+    }
+
+        const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password,salt);
+    const isouid = generateUID();
+        const newISO = new isosignup({
+            isouid,
+            email,
+            password:hashedPassword,
+            cell,
+            pointOfContact,
+            religion,
+            ethnicity,
+            stackingHistory,
+            chargesPSF
+        });
+        await newISO.save()
+        resp.status(201).json({Message: "ISO added Sucessfully",newISO})
+    }catch(err){
+        resp.status(500).json({Message:"ISO not created",Error:err.message})
+    }
 }
 
 export const userLogin = async(req,res)=>{
