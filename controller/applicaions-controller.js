@@ -14,209 +14,259 @@ const generateUID = () => {
 };
 
 export const addApplications = async (req, res) => {
-    const {
-        AgentUID,
-        Overview: {
-            BusinessInformation: {
-                LegalName,
-                DoingBusinessAs,
-                EmailAddress,
-                MobileNumber
-            },
-            FundingDetails: {
-                LenderName,
-                Installment,
-                TypeOfLoan,
-                Frequency
-            },
-            ISODetails: {
-                ISOName,
-                ISOSalesRep: OverviewISOSalesRep,
-                SalesRep,
-                ISOManager
-            },
-        },
-        ClientDetails: {
+    const {data,
+        // AgentUID,
+        // Overview: {
+        //     BusinessInformation: {
+        //         LegalName,
+        //         DBAName,
+        //         EmailAddress,
+        //         BusinessNumber,
+        //         PreferredContactPhoneNumber,
+        //         EntityType,
+        //         FederalTaxID,
+        //         BusinessStartDateUnderCurrentOwnership,
+        //         StateofIncorporation,
+        //         IndustryType,
+        //         BusinessStructure,
+        //         City,
+        //         State,
+        //         ZIP,
+        //         SourcesofRevenue,
+        //         BusinessLocation
+        //     },
+        //     FundingDetails: {
+        //         LenderName,
+        //         Installment,
+        //         TypeOfLoan,
+        //         Frequency
+        //     },
+        //     ISODetails: {
+        //         ISOName,
+        //         ISOSalesRep: OverviewISOSalesRep,
+        //         SalesRep,
+        //         ISOManager
+        //     },
+        // },
+        // ClientDetails: {
 
-            OwnerInformation: {
-                FirstName,
-                LastName,
-                CompanyEmail,
-                BusinessPhoneNumber,
-                CellNumber,
-                PrimaryWebsite,
-                Amount,
-                SSN
-            },
-            IndustryDetails: {
-                SICDescription,
-                SICCode,
-                NAICSDescription,
-                NAICSCode
-            },
-            BusinessDetails: {
-                DateBusinessStarted,
-                LengthOfOwnership,
-                IncorporationDate,
-                GrossMonthlySales,
-                IncorporationState,
-                TypesOfBusinessEntity,
-                EINNumber,
-                Addresses
-            },
-            ISOInformation: {
-                ReferringISO,
-                ISOSalesRep: ClientDetailsISOSalesRep
-            },
-            // CardInfo:{
-            //     DebitCredit,
-            //     CardType,
-            //     CardIssuer,
-            //     NameOnCard,
-            //     CardNumber,
-            //     ExpiryDate,
-            //     CVV
-            // },
-            // BillionInfo:{
-            //     BillingAddress,
-            //     BillingAddress2,
-            //     BillingCity,
-            //     BillingState,
-            //     BillingZIPCode
-            // },
-            // BankDetails:{
-            //     RoutingNumber,
-            //     AccountNumber,
-            //     BankName,
-            //     AccountType,
-            //     HolderName,
-            //     AccountHolderAddress,
-            //     AccountHolderCity,
-            //     AccountHolderState,
-            //     AccountHolderZIPCode
-            // },
-        },
-        Notes: {
-            NoteType,
-            NoteTemplate,
-            NoteContent
-        },
+        //     OwnerInformation: {
+        //         FirstName,
+        //         LastName,
+        //         CompanyEmail,
+        //         BusinessPhoneNumber,
+        //         CellNumber,
+        //         PrimaryWebsite,
+        //         Amount,
+        //         SSN,
+        //         DateOFBirth,
+        //         Religion,
+        //         Ethnicity,
+        //         HomeStreetAddress,
+        //         City: OwnerCity,
+        //         State: OwnerState,
+        //         ZIP: OwnerZIP,
+        //     },
+        //     IndustryDetails: {
+        //         SICDescription,
+        //         SICCode,
+        //         NAICSDescription,
+        //         NAICSCode
+        //     },
+        //     BusinessDetails: {
+        //         DateBusinessStarted,
+        //         LengthOfOwnership,
+        //         IncorporationDate,
+        //         GrossMonthlySales,
+        //         IncorporationState,
+        //         TypesOfBusinessEntity,
+        //         EINNumber,
+        //         Addresses
+        //     },
+        //     ISOInformation: {
+        //         ReferringISO,
+        //         ISOSalesRep: ClientDetailsISOSalesRep
+        //     },
+        //     // CardInfo:{
+        //     //     DebitCredit,
+        //     //     CardType,
+        //     //     CardIssuer,
+        //     //     NameOnCard,
+        //     //     CardNumber,
+        //     //     ExpiryDate,
+        //     //     CVV
+        //     // },
+        //     // BillionInfo:{
+        //     //     BillingAddress,
+        //     //     BillingAddress2,
+        //     //     BillingCity,
+        //     //     BillingState,
+        //     //     BillingZIPCode
+        //     // },
+        //     // BankDetails:{
+        //     //     RoutingNumber,
+        //     //     AccountNumber,
+        //     //     BankName,
+        //     //     AccountType,
+        //     //     HolderName,
+        //     //     AccountHolderAddress,
+        //     //     AccountHolderCity,
+        //     //     AccountHolderState,
+        //     //     AccountHolderZIPCode
+        //     // },
+        // },
+        // Notes: {
+        //     NoteType,
+        //     NoteTemplate,
+        //     NoteContent
+        // },
         files
     } = req.body;
-    const ApplicationId = generateUID();
-    // const mydata= await mongoose.connection.db.collection('application.files').find().toArray();
-    const fileDocuments = files.map(file => ({
-        filename: file.filename,
-        path: `${serverurl}/application/${file.docid}`,
-        docid:file.docid
-    }));
     try {
-        const newApplication = new applications({
-            AgentUID,
-            ApplicationId,
-            Overview: {
-                BusinessInformation: {
-                    LegalName,
-                    DoingBusinessAs,
-                    EmailAddress,
-                    MobileNumber
-                },
-                FundingDetails: {
-                    LenderName,
-                    Installment,
-                    TypeOfLoan,
-                    Frequency
-                },
-                ISODetails: {
-                    ISOName,
-                    ISOSalesRep: OverviewISOSalesRep,
-                    SalesRep,
-                    ISOManager
-                },
-            },
-            ClientDetails: {
-
-                OwnerInformation: {
-                    FirstName,
-                    LastName,
-                    CompanyEmail,
-                    BusinessPhoneNumber,
-                    CellNumber,
-                    PrimaryWebsite,
-                    Amount,
-                    SSN
-                },
-                IndustryDetails: {
-                    SICDescription,
-                    SICCode,
-                    NAICSDescription,
-                    NAICSCode
-                },
-                BusinessDetails: {
-                    DateBusinessStarted,
-                    LengthOfOwnership,
-                    IncorporationDate,
-                    GrossMonthlySales,
-                    IncorporationState,
-                    TypesOfBusinessEntity,
-                    EINNumber,
-                    Addresses
-                },
-                ISOInformation: {
-                    ReferringISO,
-                    ISOSalesRep: ClientDetailsISOSalesRep
-                },
-                //     CardInfo:{
-                //         DebitCredit,
-                //         CardType,
-                //         CardIssuer,
-                //         NameOnCard,
-                //         CardNumber,
-                //         ExpiryDate,
-                //         CVV
+        const SSN = data.ClientDetails.OwnerInformation.SSN;
+        const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation.SSN": SSN});
+        if (existingApplication) {
+            console.log("Checking exisitng Appliation")
+            return res.status(401).json({
+                Message: `Application with SSN ${SSN} already exists`,
+                applicationId: existingApplication.ApplicationId
+            })
+        }
+            // const fileDocuments= await mongoose.connection.db.collection('application.files').find().toArray();
+            // const fileDocuments =[]
+            const fileDocuments =[] || files.map(file => ({
+                    filename: file.filename,
+                    path: `${serverurl}/application/${file.docid}`,
+                    docid: file.docid
+                }));
+                const ApplicationId = generateUID();
+                const newApplication = new applications({...data,
+                    ApplicationId,
+                //     AgentUID,
+                //     Overview: {
+                //         BusinessInformation: {
+                //             LegalName,
+                //             DBAName,
+                //             EmailAddress,
+                //             BusinessNumber,
+                //             PreferredContactPhoneNumber,
+                //             EntityType,
+                //             FederalTaxID,
+                //             BusinessStartDateUnderCurrentOwnership,
+                //             StateofIncorporation,
+                //             IndustryType,
+                //             BusinessStructure,
+                //             City,
+                //             State,
+                //             ZIP,
+                //             SourcesofRevenue,
+                //             BusinessLocation
+                //         },
+                //         FundingDetails: {
+                //             LenderName,
+                //             Installment,
+                //             TypeOfLoan,
+                //             Frequency
+                //         },
+                //         ISODetails: {
+                //             ISOName,
+                //             ISOSalesRep: OverviewISOSalesRep,
+                //             SalesRep,
+                //             ISOManager
+                //         },
                 //     },
-                //     BillionInfo:{
-                //         BillingAddress,
-                //         BillingAddress2,
-                //         BillingCity,
-                //         BillingState,
-                //         BillingZIPCode
+                //     ClientDetails: {
+                        
+                //         OwnerInformation: {
+                //             FirstName,
+                //             LastName,
+                //             CompanyEmail,
+                //             BusinessPhoneNumber,
+                //             CellNumber,
+                //             PrimaryWebsite,
+                //             Amount,
+                //             SSN,
+                //             DateOFBirth,
+                //             Religion,
+                //             Ethnicity,
+                //             HomeStreetAddress,
+                //             City:OwnerCity,
+                //             State:OwnerState,
+                //             ZIP:OwnerZIP,
+                //         },
+                //         IndustryDetails: {
+                //             SICDescription,
+                //             SICCode,
+                //             NAICSDescription,
+                //             NAICSCode
+                //         },
+                //         BusinessDetails: {
+                //             DateBusinessStarted,
+                //             LengthOfOwnership,
+                //             IncorporationDate,
+                //             GrossMonthlySales,
+                //             IncorporationState,
+                //             TypesOfBusinessEntity,
+                //             EINNumber,
+                //             Addresses
+                //         },
+                //         ISOInformation: {
+                //             ReferringISO,
+                //             ISOSalesRep: ClientDetailsISOSalesRep
+                //         },
+                //         //     CardInfo:{
+                // //         DebitCredit,
+                // //         CardType,
+                // //         CardIssuer,
+                // //         NameOnCard,
+                // //         CardNumber,
+                // //         ExpiryDate,
+                // //         CVV
+                // //     },
+                // //     BillionInfo:{
+                //     //         BillingAddress,
+                //     //         BillingAddress2,
+                //     //         BillingCity,
+                //     //         BillingState,
+                //     //         BillingZIPCode
+                //     //     },
+                //     //     BankDetails:{
+                //         //         RoutingNumber,
+                //         //         AccountNumber,
+                //         //         BankName,
+                //         //         AccountType,
+                //         //         HolderName,
+                //         //         AccountHolderAddress,
+                //         //         AccountHolderCity,
+                //         //         AccountHolderState,
+                //         //         AccountHolderZIPCode
+                //         //     },
                 //     },
-                //     BankDetails:{
-                //         RoutingNumber,
-                //         AccountNumber,
-                //         BankName,
-                //         AccountType,
-                //         HolderName,
-                //         AccountHolderAddress,
-                //         AccountHolderCity,
-                //         AccountHolderState,
-                //         AccountHolderZIPCode
-                //     },
-            },
-            Documents: fileDocuments,
-            Notes: {
-                NoteType,
-                NoteTemplate,
-                NoteContent
-            },
-            Status: "In Process"
-        });
+                //     // Documents,
+                //     Notes: {
+                    //         NoteType,
+                    //         NoteTemplate,
+                    //         NoteContent
+                    //     },
+                        Documents: fileDocuments,
+                    Status: "In Process"
+                });
         await newApplication.save();
         res.status(201).json({ Message: 'Application Details and Documents added Successfully', application_Id: newApplication.ApplicationId })
-    } catch (err) {
+    }
+    catch (err) {
         res.status(500).json({ Message: 'Error saving application', error: err.message });
     }
 }
 
 export const updateApplication = async (req, res) => {
     const { id } = req.params;
-    const { updateData ,files} = req.body;
-    console.log("Data:",req.body)
+    const { updateData, files } = req.body;
+    console.log("Data:", req.body)
     const fileDocuments = files.map(file => ({
         filename: file.filename,
         path: `${serverurl}/application/${file.docid}`,
-        docid:file.docid
+        docid: file.docid
     }));
     try {
         // const ownershipData = await ownerships.find({})

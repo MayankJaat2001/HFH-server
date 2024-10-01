@@ -3,12 +3,13 @@ import mongoose from "mongoose";
 const applicationSchema = new mongoose.Schema({
     AgentUID:String,
     ApplicationId:String,
+    AddedAt:{type:Date,default:Date.now},
     Overview: {
         BusinessInformation: {
             LegalName:String,
             DBAName:String,
             EmailAddress:String,
-            BusinessPhoneNumber:String,
+            BusinessNumber:String,
             PreferredContactPhoneNumber:String,
             EntityType:String,
             FederalTaxID:String,
@@ -39,7 +40,7 @@ const applicationSchema = new mongoose.Schema({
         },
     },
     ClientDetails: {
-        OwnerInformation: [{
+        OwnerInformation: {
             FirstName:String,
             LastName:String,
             CompanyEmail:String,
@@ -55,7 +56,7 @@ const applicationSchema = new mongoose.Schema({
             City:String,
             State:String,
             ZIP:String,
-        }],
+        },
         IndustryDetails:{
             SICDescription:String,
             SICCode:String,

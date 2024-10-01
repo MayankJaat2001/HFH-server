@@ -8,14 +8,14 @@ const isoSignup = new mongoose.Schema({
     pointOfContact: {type: String , required: true},
     religion: { type: String },
     ethnicity: { type: String },
-    stackingHistory: { 
-    type: String, 
-    enum: ['Aggressive Stacker', 'Somewhat Stacker'], 
-  },
-  chargesPSF: { 
-    type: String, 
-    enum: ['Aggressive on the Fees', 'Mellow on the Fees'],
-  }
+  //   stackingHistory: { 
+  //   type: String, 
+  //   enum: ['Aggressive Stacker', 'Somewhat Stacker'], 
+  // },
+  // chargesPSF: { 
+  //   type: String, 
+  //   enum: ['Aggressive on the Fees', 'Mellow on the Fees'],
+  // }
 });
 
 export const isosignup = mongoose.model('ISOSignup', isoSignup);

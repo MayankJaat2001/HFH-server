@@ -53,8 +53,8 @@ export const ISOSignup = async(req,resp)=>{
             pointOfContact,
             religion,
             ethnicity,
-            stackingHistory,
-            chargesPSF
+            // stackingHistory,
+            // chargesPSF
         }=req.body
 
         let iso = await isosignup.findOne({email});
@@ -73,8 +73,8 @@ export const ISOSignup = async(req,resp)=>{
             pointOfContact,
             religion,
             ethnicity,
-            stackingHistory,
-            chargesPSF
+            // stackingHistory,
+            // chargesPSF
         });
         await newISO.save()
         resp.status(201).json({Message: "ISO added Sucessfully",newISO})
