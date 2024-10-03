@@ -40,7 +40,7 @@ const applicationSchema = new mongoose.Schema({
         },
     },
     ClientDetails: {
-        OwnerInformation: {
+        OwnerInformation: [{
             FirstName:String,
             LastName:String,
             CompanyEmail:String,
@@ -56,7 +56,7 @@ const applicationSchema = new mongoose.Schema({
             City:String,
             State:String,
             ZIP:String,
-        },
+        }],
         IndustryDetails:{
             SICDescription:String,
             SICCode:String,

@@ -123,12 +123,15 @@ export const addApplications = async (req, res) => {
         files
     } = req.body;
     try {
-        const SSN = data.ClientDetails.OwnerInformation.SSN;
-        const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation.SSN": SSN});
+        const SSNs = data.ClientDetails.OwnerInformation.map(owner=>owner.SSN);
+        const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation": {
+        $elemMatch: { SSN: {$in:SSNs} }
+    }});
+
         if (existingApplication) {
             console.log("Checking exisitng Appliation")
             return res.status(401).json({
-                Message: `Application with SSN ${SSN} already exists`,
+                Message: `Application with SSN ${SSNs} already exists`,
                 applicationId: existingApplication.ApplicationId
             })
         }
