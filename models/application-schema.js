@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const applicationSchema = new mongoose.Schema({
-    AgentUID:String,
+    userUID:String,
     ApplicationId:String,
     AddedAt:{type:Date,default:Date.now},
     Overview: {

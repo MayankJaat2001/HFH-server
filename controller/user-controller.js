@@ -66,6 +66,7 @@ export const ISOSignup = async(req,resp)=>{
     const hashedPassword = await bcrypt.hash(password,salt);
     const isouid = generateUID();
         const newISO = new isosignup({
+            role:"iso",
             isouid,
             email,
             password:hashedPassword,

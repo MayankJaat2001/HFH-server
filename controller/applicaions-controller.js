@@ -299,11 +299,11 @@ export const updateApplication = async (req, res) => {
 
 export const getApplication = async (req, res) => {
     try {
-        const agentUID = req.query.agentUID;
-        if (!agentUID) {
-            return res.status(400).json({ message: "AgentUID is required" })
+        const userUID = req.query.userUID;
+        if (!userUID) {
+            return res.status(400).json({ message: "userUID is required" })
         }
-        const newApplications = await applications.find({ "AgentUID": agentUID });
+        const newApplications = await applications.find({ "userUID": userUID });
 
         const applicationWithStatus = newApplications.map(app => ({
             ...app.toObject(),

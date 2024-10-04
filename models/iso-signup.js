@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const isoSignup = new mongoose.Schema({
+    role:String,
     isouid:{type:String ,required : true},
     email: { type: String, required: true },
     password:{type:String,required:true},
