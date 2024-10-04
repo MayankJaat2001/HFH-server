@@ -14,7 +14,7 @@ const generateUID = () => {
 };
 
 export const addApplications = async (req, res) => {
-    const {data,
+    const {myData, userUID,
         // AgentUID,
         // Overview: {
         //     BusinessInformation: {
@@ -122,8 +122,9 @@ export const addApplications = async (req, res) => {
         // },
         files
     } = req.body;
+     console.log ("Data",myData)
     try {
-        const SSNs = data.ClientDetails.OwnerInformation.map(owner=>owner.SSN);
+        const SSNs = myData.ClientDetails.OwnerInformation.map(owner=>owner.SSN);
         const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation": {
         $elemMatch: { SSN: {$in:SSNs} }
     }});
@@ -143,9 +144,9 @@ export const addApplications = async (req, res) => {
                     docid: file.docid
                 }));
                 const ApplicationId = generateUID();
-                const newApplication = new applications({...data,
+                const newApplication = new applications({...myData,
                     ApplicationId,
-                //     AgentUID,
+                    userUID,    
                 //     Overview: {
                 //         BusinessInformation: {
                 //             LegalName,
@@ -254,11 +255,12 @@ export const addApplications = async (req, res) => {
                         Documents: fileDocuments,
                     Status: "In Process"
                 });
+                console.log("New Application::",newApplication)
         await newApplication.save();
         res.status(201).json({ Message: 'Application Details and Documents added Successfully', application_Id: newApplication.ApplicationId })
     }
     catch (err) {
-        res.status(500).json({ Message: 'Error saving application', error: err.message });
+        res.status(500).json({ Message: 'Error saving application', error: err.Message });
     }
 }
 
