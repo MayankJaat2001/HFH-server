@@ -5,6 +5,13 @@ import Connection from './database/db.js';
 import cors from 'cors'
 
 
+
+const app = express();
+dotenv.config()
+app.use(express.json());
+// app.use(cors())
+app.use('/',routes)
+
 const corsOptions = {
     origin: 'https://demohfhsite.netlify.app', // allow only your Netlify domain
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // specify the HTTP methods allowed
@@ -13,13 +20,6 @@ const corsOptions = {
   };
   
   app.use(cors(corsOptions));
-
-const app = express();
-dotenv.config()
-app.use(express.json());
-// app.use(cors())
-app.use('/',routes)
-
 
 Connection(process.env.MONGO_URI)
 
