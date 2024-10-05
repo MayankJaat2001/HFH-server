@@ -214,14 +214,14 @@ const applicationSchema = new mongoose.Schema({
         DeclineMessageOther:String
     },
     BankInformation:{
-        BankDetails:{
+        BankDetails:[{
             AccountNumber:String,
             BankName:String,
             CurrentAccountBalance:String,
             BusinessModel:String,
             PurposeofFunds:String,
             PurposeofPreviousFunds:String
-       }
+       }]
     }
 })
 
