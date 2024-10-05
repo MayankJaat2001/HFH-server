@@ -120,7 +120,8 @@ export const addApplications = async (req, res) => {
         //     NoteTemplate,
         //     NoteContent
         // },
-        files
+        files,
+        Status
     } = req.body;
      console.log ("Data",myData)
     try {
@@ -138,7 +139,7 @@ export const addApplications = async (req, res) => {
         }
             // const fileDocuments= await mongoose.connection.db.collection('application.files').find().toArray();
             // const fileDocuments =[]
-            const fileDocuments =[] || files.map(file => ({
+            const fileDocuments = files.map(file => ({
                     filename: file.filename,
                     path: `${serverurl}/application/${file.docid}`,
                     docid: file.docid
@@ -253,7 +254,7 @@ export const addApplications = async (req, res) => {
                     //         NoteContent
                     //     },
                         Documents: fileDocuments,
-                    Status: "In Process"
+                    Status
                 });
                 console.log("New Application::",newApplication)
         await newApplication.save();
@@ -266,7 +267,7 @@ export const addApplications = async (req, res) => {
 
 export const updateApplication = async (req, res) => {
     const { id } = req.params;
-    const { updateData, files } = req.body;
+    const { updateData, files ,Status } = req.body;
     console.log("Data:", req.body)
     const fileDocuments = files.map(file => ({
         filename: file.filename,
@@ -282,7 +283,7 @@ export const updateApplication = async (req, res) => {
         const updatedFields = {
             ...updateData,
             Documents: fileDocuments,
-            Status: updateData?.Decision.Status || "UnderWriting"
+            Status
         };
 
         const updatedApplication = await applications.findOneAndUpdate({ ApplicationId: id }, updatedFields, {
