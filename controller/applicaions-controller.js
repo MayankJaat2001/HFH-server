@@ -139,7 +139,7 @@ export const addApplications = async (req, res) => {
         }
             // const fileDocuments= await mongoose.connection.db.collection('application.files').find().toArray();
             // const fileDocuments =[]
-            const fileDocuments =[] || files.map(file => ({
+            const fileDocuments =files.map(file => ({
                     filename: file.filename,
                     path: `${serverurl}/application/${file.docid}`,
                     docid: file.docid
