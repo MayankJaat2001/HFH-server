@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const applicationSchema = new mongoose.Schema({
     userUID:String,
     ApplicationId:String,
+    Status:String,
     AddedAt:{type:Date,default:Date.now},
     Overview: {
         BusinessInformation: {

@@ -123,7 +123,7 @@ export const addApplications = async (req, res) => {
         files,
         Status
     } = req.body;
-     console.log ("Data",myData)
+     console.log ("Data",Status)
     try {
         const SSNs = myData.ClientDetails.OwnerInformation.map(owner=>owner.SSN);
         const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation": {
@@ -131,7 +131,7 @@ export const addApplications = async (req, res) => {
     }});
 
         if (existingApplication) {
-            console.log("Checking exisitng Appliation")
+            console.log("Checking exisitng Appliation",Status)
             return res.status(401).json({
                 Message: `Application with SSN ${SSNs} already exists`,
                 applicationId: existingApplication.ApplicationId
@@ -147,7 +147,8 @@ export const addApplications = async (req, res) => {
                 const ApplicationId = generateUID();
                 const newApplication = new applications({...myData,
                     ApplicationId,
-                    userUID,    
+                    userUID,  
+                    Status,  
                 //     Overview: {
                 //         BusinessInformation: {
                 //             LegalName,
@@ -254,7 +255,6 @@ export const addApplications = async (req, res) => {
                     //         NoteContent
                     //     },
                         Documents: fileDocuments,
-                    Status
                 });
                 console.log("New Application::",newApplication)
         await newApplication.save();
