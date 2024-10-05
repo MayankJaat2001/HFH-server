@@ -9,7 +9,7 @@ import cors from 'cors'
 const app = express();
 dotenv.config()
 const corsOptions = {
-    origin: 'https://demohfhsite.netlify.app', // allow only your Netlify domain
+    origin: 'https://demohfhsite.netlify.app/', // allow only your Netlify domain
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // specify the HTTP methods allowed
     credentials: true, // enable Access-Control-Allow-Credentials
     preflightContinue: false,
