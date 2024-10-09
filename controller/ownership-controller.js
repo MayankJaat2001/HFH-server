@@ -34,7 +34,7 @@ export const updateOwnership= async(request,response)=>{
         if(!updatedOwner){
             return response.status(404).json({Message:"Owner not found"});
         }
-        response.status(200).json({Message:'Owner updated Successfully',data:{updatedOwner}})
+        return response.status(200).json({Message:'Owner updated Successfully',data:{updatedOwner}})
     }catch(err){
         return response.status(500).json({Message:'Error while updating Ownership',error:err.message})
     }

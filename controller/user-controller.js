@@ -37,10 +37,10 @@ export const addUser = async(req,res)=>{
 
     // const token = jwt.sign({id:user._id,role:user.role},JWT_SECRET);
 
-    res.status(201).json({email,role,uid});
+    return res.status(201).json({email,role,uid});
 
 }catch(err){
-    res.status(500).json({err:'server error'});
+    return res.status(500).json({err:'server error'});
 }
 }
 
@@ -78,9 +78,9 @@ export const ISOSignup = async(req,resp)=>{
             // chargesPSF
         });
         await newISO.save()
-        resp.status(201).json({Message: "ISO added Sucessfully",newISO})
+        return resp.status(201).json({Message: "ISO added Sucessfully",newISO})
     }catch(err){
-        resp.status(500).json({Message:"ISO not created",Error:err.message})
+        return resp.status(500).json({Message:"ISO not created",Error:err.message})
     }
 }
 
@@ -93,7 +93,7 @@ export const userLogin = async(req,res)=>{
             if(!isMatch){
                 return res.status(400).json({message:'Invalid credentials'})
             }
-            res.json({email,role:user.role,uid:user.uid});
+            return res.json({email,role:user.role,uid:user.uid});
         }
         let iso = await isosignup.findOne({ email });
         if (iso) {
@@ -109,6 +109,6 @@ export const userLogin = async(req,res)=>{
 
         // const token=jwt.sign({id: user._id,role:user.role},JWT_SECRET);
     }catch(err){
-        res.status(500).json({err:'server error'})
+        return res.status(500).json({err:'server error'})
     }
 }

@@ -38,9 +38,9 @@ export const addISOs =async(req,res)=>{
                 document:fileDocuments,
             });
             await isos.save();
-            res.status(201).json({message:'General Details and documents added successfully',isouid:isos.ISOUID})
+            return res.status(201).json({message:'General Details and documents added successfully',isouid:isos.ISOUID})
         }catch(err){
-            res.status(500).json({message:'Error saving ISO Data',error:err.message})
+            return res.status(500).json({message:'Error saving ISO Data',error:err.message})
         }
 }
 
@@ -51,7 +51,7 @@ export const getISOs = async(req,res)=>{
             return res.status(400).json({message:"AgentUID is required"})
         }
         const isos= await ISOs.find({"AgentUID":agentUID});
-        res.status(200).json(isos);
+        return res.status(200).json(isos);
     }catch(err){
         return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
 
@@ -60,7 +60,7 @@ export const getISOs = async(req,res)=>{
 export const getAllISOs = async(req,res)=>{
     try{
         const isos= await ISOs.find({});
-        res.status(200).json(isos);
+        return res.status(200).json(isos);
     }catch(err){
         return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
 
@@ -74,8 +74,8 @@ export const getSingleISOs = async(req,resp)=>{
         if(!singleISO){
             return resp.status(404).json({message:'ISO not Found'})
         }
-        resp.status(201).json(singleISO)
+        return resp.status(201).json(singleISO)
     }catch(err){
-        resp.status(500).json({message:'Error while fetching your application',error:err.message})
+        return resp.status(500).json({message:'Error while fetching your application',error:err.message})
     }
 }

@@ -44,7 +44,7 @@ const transporter = nodemailer.createTransport({
     try {
         const info = await transporter.sendMail(mailOptions);
         console.log('Email sent: ' + res);
-        res.status(200).json({Message:"Email sent"})
+        return res.status(200).json({Message:"Email sent"})
     } catch (error) {
         console.error('Error sending email: ', error);
         throw error;
@@ -70,9 +70,9 @@ const transporter = nodemailer.createTransport({
 
     try{
       await transporter.sendMail(mailOptions);
-      resp.status(200).json({Message:"OTP sent to email"})
+      return resp.status(200).json({Message:"OTP sent to email"})
     }catch(err){
-      resp.status(500).json({Message:"Error sending OTP",err})
+      return resp.status(500).json({Message:"Error sending OTP",err})
     }
   }
 
@@ -81,8 +81,8 @@ const transporter = nodemailer.createTransport({
 
     if(otpStorage[email] && otpStorage[email]===parseInt(otp)){
       delete otpStorage[email]
-      resp.status(200).json({Message:"OTP verified Sucessfully"})
+      return resp.status(200).json({Message:"OTP verified Sucessfully"})
     }else{
-      resp.status(400).json({Message:"Invalid OTP"})
+      return resp.status(400).json({Message:"Invalid OTP"})
     }
   }

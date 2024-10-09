@@ -53,7 +53,7 @@ export const updatePosition= async(request,response)=>{
         if(!updatedposition){
             return response.status(404).json({Message:"Position not found"});
         }
-        response.status(200).json({Message:'Position updated Successfully',data:{updatedposition}})
+        return response.status(200).json({Message:'Position updated Successfully',data:{updatedposition}})
     }catch(err){
         return response.status(500).json({Message:'Error while updating position',error:err.message})
     }

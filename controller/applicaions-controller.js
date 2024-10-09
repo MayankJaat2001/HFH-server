@@ -258,10 +258,10 @@ export const addApplications = async (req, res) => {
                 });
                 console.log("New Application::",newApplication)
         await newApplication.save();
-        res.status(201).json({ Message: 'Application Details and Documents added Successfully', application_Id: newApplication.ApplicationId })
+        return res.status(201).json({ Message: 'Application Details and Documents added Successfully', application_Id: newApplication.ApplicationId })
     }
     catch (err) {
-        res.status(500).json({ Message: 'Error saving application', error: err.Message });
+        return res.status(500).json({ Message: 'Error saving application', error: err.Message });
     }
 }
 
@@ -312,7 +312,7 @@ export const getApplication = async (req, res) => {
             ...app.toObject(),
             Status: app.Status || "In Process"
         }))
-        res.status(200).json(applicationWithStatus);
+        return res.status(200).json(applicationWithStatus);
     } catch (err) {
         return res.status(500).json({ message: "Error while fetching Applications", error: err.message })
 
@@ -327,7 +327,7 @@ export const getAllApplication = async (req, res) => {
             ...app.toObject(),
             Status: app.Status || "In Process"
         }))
-        res.status(200).json(applicationWithStatus);
+        return res.status(200).json(applicationWithStatus);
     } catch (err) {
         return res.status(500).json({ message: "Error while fetching Applications", error: err.message })
 
@@ -343,8 +343,8 @@ export const getSingleApplication = async (req, resp) => {
         if (!singleApplication) {
             return resp.status(404).json({ message: 'Application not Found' })
         }
-        resp.status(201).json(singleApplication)
+        return resp.status(201).json(singleApplication)
     } catch (err) {
-        resp.status(500).json({ message: 'Error while fetching your application', error: err.message })
+        return resp.status(500).json({ message: 'Error while fetching your application', error: err.message })
     }
 }
