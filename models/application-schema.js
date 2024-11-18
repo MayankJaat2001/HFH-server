@@ -5,12 +5,12 @@ const applicationSchema = new mongoose.Schema({
     ApplicationId:String,
     Status:String,
     AddedAt:{type:Date,default:Date.now},
-    Overview: {
+    // Overview: {
         BusinessInformation: {
             LegalName:String,
             DBAName:String,
-            BuisnessMailingAddress:String,
-            BusinessNumber:String,
+            EmailAddress:String,
+            BusinessPhoneNumber:String,
             PreferredContactPhoneNumber:String,
             EntityType:String,
             FederalTaxID:String,
@@ -23,6 +23,18 @@ const applicationSchema = new mongoose.Schema({
             ZIP:String,
             SourcesofRevenue:String,
             BusinessLocation:String,
+        },
+        BusinessPhysicalAddress:{
+            Address:'',
+            City:'',
+            State:'',
+            ZIP:''
+        },
+        BusinessMailingAddress:{
+            Address:'',
+            City:'',
+            State:'',
+            ZIP:''
         },
         FundingDetails: {
             LenderName: String,
@@ -39,16 +51,15 @@ const applicationSchema = new mongoose.Schema({
             SalesRep:String,
             ISOManager: String,
         },
-    },
-    ClientDetails: {
+    // },
+    // ClientDetails: {
         OwnerInformation: [{
             FirstName:String,
             LastName:String,
             CompanyEmail:String,
-            HomePhoneNumber:String,
-            MobileNumber:String,
+            BusinessPhoneNumber:String,
+            CellNumber:String,
             PrimaryWebsite:String,
-            Amount:String,
             SSN:String,
             DateOFBirth:String,
             Religion:String,
@@ -105,7 +116,7 @@ const applicationSchema = new mongoose.Schema({
         //     AccountHolderState:String,
         //     AccountHolderZIPCode:String
         // },
-    },
+    // },
     Documents:[{
         filename:String,
             path:String,
@@ -117,17 +128,16 @@ const applicationSchema = new mongoose.Schema({
         NoteTemplate:String,
         NoteContent:String,
     },
-    UnderWriting:{
-        BusinessInformation:{
+    UnderWritingBusinessInformation:{
             GrossMonthlySales:String,
             LengthOfOwnership:String,
             TimeinBusiness:String,
         },
-        IndustryDetails:{
+        UnderWritingIndustryDetails:{
             NAICSDescription:String,
             NAICSCode:String,
         },
-        BusinessDetails:{
+        UnderWritingBusinessDetails:{
             DateBusinessStarted:String,
             LengthOfOwnership:String,
             IncorporationDate:String,
@@ -199,8 +209,6 @@ const applicationSchema = new mongoose.Schema({
         //     Actions:String
         // },
         UnderWritingNotes:String,
-        
-    },
     Decision:{
         Status:String,
         Frequency: String,
@@ -214,7 +222,7 @@ const applicationSchema = new mongoose.Schema({
         DeclineMessage:String,
         DeclineMessageOther:String
     },
-    BankInformation:{
+    // BankInformation:{
         BankDetails:[{
             AccountNumber:String,
             BankName:String,
@@ -223,7 +231,7 @@ const applicationSchema = new mongoose.Schema({
             PurposeofFunds:String,
             PurposeofPreviousFunds:String
        }]
-    }
+    // }
 })
 
 const applications=mongoose.model('applications',applicationSchema);

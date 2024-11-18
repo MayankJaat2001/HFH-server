@@ -124,6 +124,7 @@ export const addApplications = async (req, res) => {
         Status
     } = req.body;
      console.log ("Data",Status)
+     console.log("MyData",myData,files)
     try {
         const SSNs = myData.ClientDetails.OwnerInformation.map(owner=>owner.SSN);
         const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation": {
