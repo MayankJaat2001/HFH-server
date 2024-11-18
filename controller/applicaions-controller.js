@@ -125,7 +125,7 @@ export const addApplications = async (req, res) => {
     } = req.body;
     try {
         const SSNs = myData.OwnerInformation.map(owner=>owner.SSN);
-        const existingApplication = await applications.findOne({"ClientDetails.OwnerInformation": {
+        const existingApplication = await applications.findOne({"OwnerInformation": {
         $elemMatch: { SSN: {$in:SSNs} }
     }});
 
