@@ -23,18 +23,21 @@ const applicationSchema = new mongoose.Schema({
             ZIP:String,
             SourcesofRevenue:String,
             BusinessLocation:String,
+            GrossAnnualSales:String,
+            AverageMonthlyCCVolume:String,
+            AnyOpenMCA:String
         },
         BusinessPhysicalAddress:{
-            Address:'',
-            City:'',
-            State:'',
-            ZIP:''
+            Address:String,
+            City:String,
+            State:String,
+            ZIP:String
         },
         BusinessMailingAddress:{
-            Address:'',
-            City:'',
-            State:'',
-            ZIP:''
+            Address:String,
+            City:String,
+            State:String,
+            ZIP:String
         },
         FundingDetails: {
             LenderName: String,
@@ -68,6 +71,9 @@ const applicationSchema = new mongoose.Schema({
             City:String,
             State:String,
             ZIP:String,
+            Facebook:String,
+            Instagram:String,
+            X:String
         }],
         IndustryDetails:{
             SICDescription:String,
