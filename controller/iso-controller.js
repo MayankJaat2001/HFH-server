@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import ISOs from "../models/iso-schema.js";
 import mongoose from "mongoose";
+import { isosignup } from '../models/iso-signup.js';
 
 dotenv.config()
 
@@ -60,6 +61,15 @@ export const getISOs = async(req,res)=>{
 export const getAllISOs = async(req,res)=>{
     try{
         const isos= await ISOs.find({});
+        return res.status(200).json(isos);
+    }catch(err){
+        return res.status(500).json({message:"Error while fetching ISOs",error:err.message})
+
+    }
+}
+export const getAllISOSignups = async(req,res)=>{
+    try{
+        const isos= await isosignup.find({});
         return res.status(200).json(isos);
     }catch(err){
         return res.status(500).json({message:"Error while fetching ISOs",error:err.message})

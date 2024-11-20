@@ -1,6 +1,6 @@
 import express from 'express';
 import {addUser ,ISOSignup,userLogin} from '../controller/user-controller.js'
-import { addISOs, getAllISOs, getISOs, getSingleISOs } from '../controller/iso-controller.js';
+import { addISOs, getAllISOs, getAllISOSignups, getISOs, getSingleISOs } from '../controller/iso-controller.js';
 import { deleteDocument, getDocuments, uploadFile } from '../controller/doc-controller.js';
 import upload from '../middlewares/uploads.js';
 import applicationuploads from '../middlewares/applicationuploads.js';
@@ -43,6 +43,7 @@ router.get('/get-isos',getISOs);
 router.get('/get-applications',getApplication);
 router.get('/get-allapplications',getAllApplication);
 router.get('/get-allisos',getAllISOs);
+router.get('/get-allisosignups',getAllISOSignups);
 router.get('/singleiso/:id',getSingleISOs);
 router.post('/send-mail',sendEmail);
 router.post('/iso-signup',ISOSignup);
